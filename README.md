@@ -12,42 +12,43 @@ Homebrew 8-bit RISC CPU that will be worked on in phases to allow for other side
 
 
 ## Instruction Set
-[![Instruction-Set](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)
+[![Instruction-Set](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)](https://raw.githubusercontent.com/barrettotte/Subarashii-CPU/master/Documentation/ISA.PNG)
 
 ## Phases
-* Phase I
-  * Design overall CPU and ISA, plan as much as I can
-  * Clock module
-  * 4x8-bit registers (4 of 8) and 8-bit data bus
-  * ALU with all required functionality
-  * VHDL and breadboard implementation of Phase I
-* Phase II
-  * 4x8-bit registers (8 of 8)
-  * 256x8-bit RAM with EEPROM
-  * 8-bit Memory Address Register
-  * VHDL and breadboard implementation of Phase II
-* Phase III
-  * Program counter and 8-bit program bus
-  * 256x8-bit ROM with EEPROM
-  * 7-segment decoder with EEPROM
-  * 7-segment display
-  * VHDL and breadboard implementation of Phase III
-* Phase IV
-  * Control module
-  * 8-bit Instruction Register
-  * Microcoding via dip switches
-  * VHDL and breadboard implementation of Phase IV
-* Phase V
-  * Make actual schematics for everything (Make it pretty)
-  * Document parts used in project
-  * Write a basic assembler
-  * Program loader with EEPROM and Arduino Zero
-  * Write some basic programs
-  * Document assembly language
-* Phase VI
-  * Expand RAM and ROM sizes
-  * Implement stack logic in hardware and assembler
-  * Console interaction via Serial Port
+- [ ] Phase I
+  - [x] Design overall CPU and ISA, plan as much as I can
+  - [x] Clock module
+  - [x] 4x8-bit registers (4 of 8) and 8-bit data bus
+  - [ ] ALU with all required functionality
+  - [ ] Start documenting ISA, schematics, and parts used
+  - [ ] Finish VHDL and breadboard implementations of Phase I
+- [ ] Phase II
+  - [ ] 4x8-bit registers (8 of 8)
+  - [ ] 256x8-bit RAM with EEPROM
+  - [ ] 8-bit Memory Address Register
+  - [ ] Finish VHDL and breadboard implementations of Phase II
+- [ ] Phase III
+  - [ ] Program counter and 8-bit program bus
+  - [ ] 256x8-bit ROM with EEPROM
+  - [ ] 7-segment decoder with EEPROM
+  - [ ] 7-segment display
+  - [ ] Finish VHDL and breadboard implementations of Phase III
+- [ ] Phase IV
+  - [ ] Control module
+  - [ ] 8-bit Instruction Register
+  - [ ] Microcoding via dip switches
+  - [ ] Finish VHDL and breadboard implementations of Phase IV
+- [ ] Phase V
+  - [ ] Make actual schematics for everything (Make it pretty)
+  - [ ] Finish documenting parts used in project
+  - [ ] Write a basic assembler
+  - [ ] Program loader with EEPROM and Arduino Zero
+  - [ ] Write some basic programs
+  - [ ] Document assembly language
+- [ ] Phase VI
+  - [ ] Expand RAM and ROM sizes
+  - [ ] Implement stack logic in hardware and assembler
+  - [ ] Console interaction via Serial Port
 
 
 ## Possible Future Goals (AKA stuff I have absolutely no idea how I would do...yet)
