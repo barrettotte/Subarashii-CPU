@@ -11,6 +11,9 @@ Homebrew 8-bit RISC CPU that will be worked on in phases to allow for other side
 * 256x8-bit ROM program memory
 
 
+## Instruction Set
+[![Instruction-Set](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)
+
 ## Phases
 * Phase I
   * Design overall CPU and ISA, plan as much as I can
