@@ -1,7 +1,8 @@
 # Subarashii-CPU
 
 
-Homebrew 8-bit RISC CPU that will be worked on in phases to allow for other side projects to get done.
+Homebrew 8-bit RISC CPU that will be implemented in VHDL and on breadboards. 
+This project will be done in phases to allow time for other side projects.
 
 
 ## Basic Specifications
@@ -13,6 +14,7 @@ Homebrew 8-bit RISC CPU that will be worked on in phases to allow for other side
 
 ## Instruction Set
 [![Instruction-Set](https://github.com/barrettotte/Subarashii-CPU/blob/master/Documentation/ISA.PNG)](https://raw.githubusercontent.com/barrettotte/Subarashii-CPU/master/Documentation/ISA.PNG)
+
 
 ## Phases
 - [ ] Phase I
