@@ -1,4 +1,4 @@
-# Subarashii-CPU
+# Subarashii-CPU  &nbsp;&nbsp;&nbsp;&nbsp; 素晴らしい
 
 
 Homebrew 8-bit RISC CPU that will be implemented in VHDL and on breadboards. 
@@ -23,6 +23,7 @@ This project will be done in phases to allow time for other side projects.
   - [x] 4x8-bit registers (4 of 8) and 8-bit data bus
   - [ ] ALU with all required functionality
   - [ ] Start documenting ISA, schematics, and parts used
+  - [ ] "Power Supply" Module (bypass capacitors, star distribution, etc.)
   - [ ] Finish VHDL and breadboard implementations of Phase I
 - [ ] Phase II
   - [ ] 4x8-bit registers (8 of 8)
@@ -68,7 +69,7 @@ This project will be done in phases to allow time for other side projects.
 | [Documentation](https://github.com/barrettotte/Subarashii-CPU/tree/master/Documentation) | All documentation related to the Subarashii-CPU |
 | [Implementation-Breadboard](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implmentation-Breadboard) | Breadboard implementation of Subarashii-CPU | 
 | [Implementation-VHDL](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implementation-VHDL) | VHDL implmentation of Subarashii-CPU |
-| [Misc\Intro-VHDL](https://github.com/barrettotte/Subarashii-CPU/tree/master/Misc/Intro-VHDL) | Introduction to VHDL and computer architecture || [Testbenches](https://github.com/barrettotte/Subarashii-CPU/tree/master/Testbenches) | VHDL testbenches |
+| [Testbenches](https://github.com/barrettotte/Subarashii-CPU/tree/master/Testbenches) | VHDL testbenches |
 
 
 ## Sources
