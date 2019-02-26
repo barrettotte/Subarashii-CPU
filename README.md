@@ -67,28 +67,27 @@ This project will be done in phases to allow time for other side projects.
 - [ ] Phase I
   - [x] Design overall CPU and ISA, plan as much as I can
   - [x] Clock module
-  - [x] 4x8-bit registers (4 of 8) and 8-bit data bus
-  - [ ] ALU with all required functionality
-  - [ ] Start documenting ISA, schematics, and parts used
-  - [ ] "Power Supply" Module (bypass capacitors, star distribution, etc.)
+  - [x] 8x8-bit registers (4 of 8) and 8-bit data bus
+  - [x] Start documenting ISA, schematics, and parts used
+  - [x] "Power Supply" Module (bypass capacitors, star distribution, etc.)
   - [ ] Register bank with register selection
-  - [ ] Finish VHDL and breadboard implementations of Phase I
+  - [ ] ALU with all required functionality
+  - [ ] VHDL and breadboard implementations of Phase I
 - [ ] Phase II
-  - [x] 4x8-bit registers (8 of 8)
   - [ ] 256x8-bit RAM with EEPROM
   - [ ] 8-bit Memory Address Register
-  - [ ] Finish VHDL and breadboard implementations of Phase II
+  - [ ] VHDL and breadboard implementations of Phase II
 - [ ] Phase III
   - [ ] Program counter and 8-bit program bus
   - [ ] 256x8-bit ROM with EEPROM
   - [ ] 7-segment decoder with EEPROM
   - [ ] 7-segment display
-  - [ ] Finish VHDL and breadboard implementations of Phase III
+  - [ ] VHDL and breadboard implementations of Phase III
 - [ ] Phase IV
   - [ ] Control module
   - [ ] 8-bit Instruction Register
   - [ ] Microcoding via dip switches
-  - [ ] Finish VHDL and breadboard implementations of Phase IV
+  - [ ] VHDL and breadboard implementations of Phase IV
 - [ ] Phase V
   - [ ] Make actual schematics for everything (Make it pretty)
   - [ ] Finish documenting parts used in project
@@ -107,6 +106,7 @@ This project will be done in phases to allow time for other side projects.
 * Video Card?
 * Keyboard interface via serial or PS/2 ?
 * Sound Card?
+* A "high level" language that compiles down to Subarashii ASM
 * An "Operating System" (If you can call it that at this point?)
 * TCP/IP?
 
@@ -115,8 +115,9 @@ This project will be done in phases to allow time for other side projects.
 | Directory            | Description                                               |
 | -------------------- | --------------------------------------------------------- |
 | [Documentation](https://github.com/barrettotte/Subarashii-CPU/tree/master/Documentation) | All documentation related to the Subarashii-CPU |
-| [Implementation-Breadboard](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implmentation-Breadboard) | Breadboard implementation of Subarashii-CPU | 
+| [Implementation-Breadboard](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implmentation-Breadboard) | Pictures of Breadboard implementation of Subarashii-CPU | 
 | [Implementation-VHDL](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implementation-VHDL) | VHDL implmentation of Subarashii-CPU |
+| [Schematics](https://github.com/barrettotte/Subarashii-CPU/tree/master/Schematics) | Block diagrams and basic schematics |
 | [Testbenches](https://github.com/barrettotte/Subarashii-CPU/tree/master/Testbenches) | VHDL testbenches |
 
 
