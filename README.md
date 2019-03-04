@@ -1,4 +1,4 @@
-# Subarashii-CPU  &nbsp;&nbsp;&nbsp;&nbsp; 素晴らしい
+# Subarashii-CPU  &nbsp;&nbsp;&nbsp;&nbsp; すばらしい
 
 
 Homebrew 8-bit RISC CPU that will be implemented in VHDL and on breadboards. 

@@ -1,25 +1,23 @@
+-- 8-bit register --
+
 library ieee;
 use ieee.std_logic_1164.all;
 
 entity register8 is
-	port(
-		i    : in  std_logic_vector(7 downto 0);
-        en   : in  std_logic;
-        load : in  std_logic;
-        clr  : in  std_logic;
-		clk  : in  std_logic;
-		o    : out std_logic_vector(7 downto 0)
-	);
-end entity register8;
+    port (
+        data_in  : in  std_logic_vector(7 downto 0);
+        en_in    : in  std_logic;                     -- active LOW
+        en_out   : in  std_logic;                     -- active LOW
+        clk      : in  std_logic;
+        data_out : out std_logic_vector(7 downto 0)
+    );
+end register8;
 
 architecture rtl of register8 is
-	signal val : std_logic_vector(7 downto 0);
+    signal dir_1 : std_logic;
+    signal out_377 : std_logic_vector(7 downto 0);
 begin
-	process(clk)
-	begin
-		if(clk'event and clk = '1' and en = '1') then
-			val <= i;
-		end if;
-	end process;
-	o <= val;
+    dir_1 <= '1';
+    IC_74LS377_1 : entity work.IC_74LS377 port map(data_in, clk, en_out, out_377);
+    IC_74LS245_1 : entity work.IC_74LS245 port map(out_377, en_in, dir_1, data_out);
 end rtl;
