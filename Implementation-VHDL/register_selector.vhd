@@ -18,9 +18,9 @@ entity register_selector is
         h     : in  std_logic_vector(7 downto 0);
         o     : out std_logic_vector(7 downto 0);  -- 00000001, ... , 10000000 
     );
-end register8;
+end register_selector;
 
-architecture rtl of register8 is
+architecture rtl of register_selector is
     signal not_o std_logic_vector(7 downto 0);
 begin
     IC_74LS151_0 : entity work.IC_74LS151 port map(a, sel, en(0), o(0), not not_o(0));

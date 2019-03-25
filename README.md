@@ -5,6 +5,16 @@ Homebrew 8-bit RISC CPU that will be implemented in VHDL and on breadboards.
 This project will be done in phases to allow time for other side projects.
 
 
+## Repository Details
+| Directory            | Description                                               |
+| -------------------- | --------------------------------------------------------- |
+| [Documentation](https://github.com/barrettotte/Subarashii-CPU/tree/master/Documentation) | All documentation related to the Subarashii-CPU |
+| [Implementation-Breadboard](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implmentation-Breadboard) | Pictures of Breadboard implementation of Subarashii-CPU | 
+| [Implementation-VHDL](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implementation-VHDL) | VHDL implmentation of Subarashii-CPU |
+| [Schematics](https://github.com/barrettotte/Subarashii-CPU/tree/master/Schematics) | Block diagrams and basic schematics |
+| [Testbenches](https://github.com/barrettotte/Subarashii-CPU/tree/master/Testbenches) | VHDL testbenches |
+
+
 ## Basic Specifications
 * 8x8-bit registers
 * 16-bit RISC instruction set
@@ -131,16 +141,6 @@ Rough current cost: $118.43  see [Parts.xlsx](https://github.com/barrettotte/Sub
 * A "high level" language that compiles down to Subarashii ASM
 * An "Operating System" (If you can call it that at this point?)
 * TCP/IP?
-
-
-## Repository Details
-| Directory            | Description                                               |
-| -------------------- | --------------------------------------------------------- |
-| [Documentation](https://github.com/barrettotte/Subarashii-CPU/tree/master/Documentation) | All documentation related to the Subarashii-CPU |
-| [Implementation-Breadboard](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implmentation-Breadboard) | Pictures of Breadboard implementation of Subarashii-CPU | 
-| [Implementation-VHDL](https://github.com/barrettotte/Subarashii-CPU/tree/master/Implementation-VHDL) | VHDL implmentation of Subarashii-CPU |
-| [Schematics](https://github.com/barrettotte/Subarashii-CPU/tree/master/Schematics) | Block diagrams and basic schematics |
-| [Testbenches](https://github.com/barrettotte/Subarashii-CPU/tree/master/Testbenches) | VHDL testbenches |
 
 
 ## Sources
