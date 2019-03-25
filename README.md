@@ -12,7 +12,28 @@ This project will be done in phases to allow time for other side projects.
 * 256x8-bit ROM program memory
 
 
+## Hardware Information
+To make this easily storable and easy to work on, I will use document trays to make "layers".
 <pre>
+    +----------------------------------------+
+    |     Control Module, Clock              |
+    +----------------------------------------+
+    |     Data + Program Memory              |
+    +----------------------------------------+
+    |     Power Distribution, TBD            |
+    +----------------------------------------+
+    |     Register Bank, other registers     |
+    +----------------------------------------+
+    |     ALU                                |
+    +----------------------------------------+
+</pre>
+
+Rough current cost: $118.43  see [Parts.xlsx](https://github.com/barrettotte/Subarashii-CPU/tree/master/Documentation) for details.
+
+
+
+<pre>
+                        [ S U B J E C T   T O   C H A N G E ]
 +-----------------------------------------------------------------------------------------+
 |                               SUBARASHII INSTRUCTION SET                                |
 +-------+----------+--------------------------------+-------------+---------+-------------+
@@ -26,7 +47,7 @@ This project will be done in phases to allow time for other side projects.
 | 05    | JTS      | JUMP TO SUBROUTINE             | JTS N       |   00101 | XXXNNNNNNNN |
 | 06    | RET      | RETURN FROM SUBROUTINE         | RET         |   00110 | XXXXXXXXXXX |
 | 07    | ---      | ---                            | ---         |   00111 | ----------- |
-| 08    | ADDI     | ADD IMMEDIATE TO RD            | ADDI RD,N   |   01000 | DDDNNNNNNNN |
+| 08    | ADDI     | ADD IMMEDIATE TO RD            | ADDI RD,N   |   01000 | DDDNNNNNNNN | 
 | 09    | SUBI     | SUBTRACT IMMEDIATE FROM RD     | SUBI RD,N   |   01001 | DDDNNNNNNNN |
 | 10    | ANDI     | LOGICAL AND RD WITH IMMEDIATE  | ANDI RD,N   |   01010 | DDDNNNNNNNN |
 | 11    | ORI      | LOGICAL OR RD WITH IMMEDIATE   | ORI  RD,N   |   01011 | DDDNNNNNNNN |
@@ -64,16 +85,17 @@ This project will be done in phases to allow time for other side projects.
 
 
 ## Phases
-- [ ] Phase I
+- [x] Phase I
   - [x] Design overall CPU and ISA, plan as much as I can
   - [x] Clock module
   - [x] 8x8-bit registers (4 of 8) and 8-bit data bus
   - [x] Start documenting ISA, schematics, and parts used
   - [x] "Power Supply" Module (bypass capacitors, star distribution, etc.)
-  - [ ] Register bank with register selection
-  - [ ] ALU with all required functionality
-  - [ ] VHDL and breadboard implementations of Phase I
+  - [x] Register bank with register selection
+  - [x] VHDL and breadboard implementations of Phase I
 - [ ] Phase II
+  - [ ] Data bus traversal between computer "layers"
+  - [ ] ALU with all required functionality
   - [ ] 256x8-bit RAM with EEPROM
   - [ ] 8-bit Memory Address Register
   - [ ] VHDL and breadboard implementations of Phase II
