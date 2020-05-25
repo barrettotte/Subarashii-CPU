@@ -1,6 +1,14 @@
-# Development Environment
+# Dev
+Notes and junk while developing this project. 
+I might move this directory somewhere else if it gets too cluttered.
 
+
+## Development Environment
 Ubuntu, VS Code, Icarus Verilog, and GTKWave
+
+
+## Directories
+* **verilog-intro** - short introduction to Verilog, I'd only ever used VHDL a bit.
 
 
 ## Dependencies
