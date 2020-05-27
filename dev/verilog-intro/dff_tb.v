@@ -3,13 +3,13 @@
 
 module dff_tb;
 
-  reg d = 0, clk = 0, reset = 0;
+  reg clk = 0, rst = 0, d = 0;
   wire q;
 
   reg [1:0] testvectors [3:0];
   integer i;
 
-  dff UUT(clk, reset, d, q);
+  dff UUT(clk, rst, d, q);
 
   initial begin
     testvectors[0] = 3'b00;
@@ -26,7 +26,7 @@ module dff_tb;
     $dumpfile("out/dff.vcd");
     $dumpvars(0, dff_tb);
     for(i = 0; i < 4; i++) begin
-      {d, reset} = testvectors[i];
+      {d, rst} = testvectors[i];
       #45;
     end
     $finish;
