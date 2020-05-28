@@ -8,6 +8,6 @@ if [ $# -eq 0 ] ; then
 fi
 
 rm -rf out/*
-iverilog -o "out/$1.vvp" "test/$1_tb.v"
+iverilog "test/$1_tb.v" -I src/ -o "out/$1.vvp"
 vvp "out/$1.vvp"
 gtkwave "out/$1.vcd"
