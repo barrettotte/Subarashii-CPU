@@ -1,16 +1,15 @@
 # Subarashii-CPU
 
-A homebrew 8-bit RISC CPU.
+A homebrew 16-bit RISC CPU.
 
 
 ## Specifications
-* 8-bit RISC
-* 16-bit addressing
-* Memory mapped I/O - 64KB
+* 16-bit RISC, Harvard architecture
+* 64KB RAM
 
 
 ## Development
-See [docs/dev.md](docs/dev.md)
+See [docs/dev.md](docs/dev.md) for various notes and junk
 
 
 ## References

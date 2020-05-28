@@ -11,12 +11,12 @@ module reg16_tb;
 
   reg [15:0] bus = 16'b0;
 
-  wire [15:0] dA;
-  wire [15:0] dB;
+  wire [15:0] a;
+  wire [15:0] b;
 
   integer testIndex = 0;
 
-  reg16 UUT(clk, rst, en, selA, selB, bus, dA, dB);
+  reg16 UUT(clk, rst, en, selA, selB, bus, a, b);
 
   always begin
     clk = ~clk; #10;
@@ -31,28 +31,28 @@ module reg16_tb;
     
     selA = 1'b1;
     #45; 
-    testIndex++; // assert dA == bus
+    testIndex++; // assert a == bus
 
     selA = 1'b0;
     selB = 1'b1;
     #45; 
-    testIndex++; // assert dB == bus
+    testIndex++; // assert b == bus
 
     en = 1'b0;
     bus = 16'b1100110011001100;
     #45; 
-    testIndex++; // assert dB == 16'b1111000011110000
+    testIndex++; // assert b == 16'b1111000011110000
 
     rst = 1'b1;
     selB = 1'b0;
     #45; 
-    testIndex++; // assert dB == 16'b0
+    testIndex++; // assert b == 16'b0
 
     rst = 1'b0;
     selB = 1'b1;
     en = 1'b1;
     #45; 
-    testIndex++; // assert dB == 16'b1100110011001100
+    testIndex++; // assert b == 16'b1100110011001100
 
     $finish;
     $display("Testbench completed");

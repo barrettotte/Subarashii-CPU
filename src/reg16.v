@@ -12,8 +12,8 @@ module reg16(
   input  selA,        // enable A
   input  selB,        // enable B
   input  [15:0] bus,  // 16-bit bus input 
-  output [15:0] dA,   // A selector output
-  output [15:0] dB    // B selector output
+  output [15:0] a,   // A selector output
+  output [15:0] b    // B selector output
 );
 
   reg [15:0] d;
@@ -24,8 +24,8 @@ module reg16(
     else        d <= d;       // remain the same
   end
 
-  assign dA = selA ? d : 16'bz;  // output to A selector or disconnect
-  assign dB = selB ? d : 16'bz;  // output to B selector or disconnect
+  assign a = selA ? d : 16'bz;  // output to A selector or disconnect
+  assign b = selB ? d : 16'bz;  // output to B selector or disconnect
 
 endmodule
 

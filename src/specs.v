@@ -1,29 +1,42 @@
-/* specs
+/*
 
 
 16x16-bit registers
+  * R0-R11 - general purpose
+  * R12 - scratch register
+  * R13 - status register
+  * R14 - stack pointer
+  * R15 - program counter
 
-* R0-R11 - general purpose
-* R12 - scratch register
-* R13 - status register
-* R14 - stack pointer
-* R15 - program counter
+
+ALU Operations:
+  1000 - ADD
+  1001 - SUB
+  1010 - AND
+  1011 - ORR
+  1100 - NOT
+  1101 - XOR
+  1110 - LSR
+  1111 - LSL
 
 
 Instruction Set
-  1.  ADD R0,R1,R2    ; R0 = R1 + R2
-  2.  SUB R0,R1,R2    ; R0 = R1 - R2
-  3.  AND R0,R1,R2    ; R0 = R1 & R2
-  4.  ORR R0,R1,R2    ; R0 = R1 | R2
-  5.  NOT R0,R1       ; R0 = ~R1  
-  6.  XOR R0,R1,R2    ; R0 = R1 ^ R2
-  7.  LSR R0,R1       ; R0 = R1 >> 1
-  8.  LSL R0,R1       ; R0 = R1 << 1
-  9.  LDI R0,11001100 ; R0 = 11001100 (load byte immediate to register)
-  10. LDW R0,R1       ; R0 = RAM[R1]  (load word to register from memory address)
-  11. STW R0,R1       ; RAM[R0] = R1  (store word at memory address)
-  12. BEQ R0          ; Set PC to value in R0 if Z flag = 0
-  13. HLT             ; halt processor
+  1.  NOP             ; No operation
+  2.  ADD R0,R1,R2    ; R0 = R1 + R2
+  3.  SUB R0,R1,R2    ; R0 = R1 - R2
+  4.  AND R0,R1,R2    ; R0 = R1 & R2
+  5.  ORR R0,R1,R2    ; R0 = R1 | R2
+  6.  NOT R0,R1       ; R0 = ~R1  
+  7.  XOR R0,R1,R2    ; R0 = R1 ^ R2
+  8.  LSR R0,R1       ; R0 = R1 >> 1
+  9.  LSL R0,R1       ; R0 = R1 << 1
+  10. LDI R0,11001100 ; R0 = 11001100 (load byte immediate to register)
+  11. LDW R0,R1       ; R0 = RAM[R1]  (load word to register from memory address)
+  12. STW R0,R1       ; RAM[R0] = R1  (store word at memory address)
+  13. BEQ R0          ; Set PC to value in R0 if Z flag = 0
+  14. HLT             ; halt processor
+  15. ???
+  16. ???
 
 
 Macro Instructions:
@@ -75,20 +88,6 @@ Instruction Notes
    
     0000 0000 0000 0000
    |BEQ | R0 | R1 | R2 |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
