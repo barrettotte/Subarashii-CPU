@@ -28,7 +28,7 @@ module dmux4x16(
         4'b1101: d = 16'b0010000000000000; // R13
         4'b1110: d = 16'b0100000000000000; // R14
         4'b1111: d = 16'b1000000000000000; // R15
-        default: d = 16'b0000000000000000; // invalid state
+        default: d = 16'b0000000000000000; // all registers off
       endcase
     end
   end
