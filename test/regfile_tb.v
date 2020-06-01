@@ -28,15 +28,20 @@ module regfile_tb;
     $dumpvars(0, regfile_tb);
 
     wen = 1'b1;
+    rst = 1'b1; // set registers to valid initial state
+    #45;
+    rst = 1'b0;
+    rd = 16'b0;
+    #45;
+
     for(testIndex = 0; testIndex < 15; testIndex++) begin
-      #45;
-      selRd = testIndex;   // increment selected dest. reg
-      selRa = testIndex;   // increment selected A register
+      rd = testIndex;
+      selRd = testIndex;
+      selRa = testIndex; 
       selRb = testIndex;
-      //selRb = rd; // increment selected B register
-      
+      #45;
     end
-    
+
     $finish;
     $display("Testbench completed");
   end
