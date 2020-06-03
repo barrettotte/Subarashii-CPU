@@ -20,7 +20,7 @@ module regfile_tb;
   regfile UUT(clk, rst, wen, selRd, selRa, selRb, rd, ra, rb);
 
   always begin
-    clk = ~clk; #10;
+    clk = ~clk; #5;
   end
 
   initial begin
@@ -29,17 +29,17 @@ module regfile_tb;
 
     wen = 1'b1;
     rst = 1'b1; // set registers to valid initial state
-    #45;
+    #20;
     rst = 1'b0;
     rd = 16'b0;
-    #45;
+    #20;
 
     for(testIndex = 0; testIndex < 15; testIndex++) begin
       rd = testIndex;
       selRd = testIndex;
       selRa = testIndex; 
       selRb = testIndex;
-      #45;
+      #20;
     end
 
     $finish;
