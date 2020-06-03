@@ -9,7 +9,7 @@ A homebrew 16-bit RISC CPU.
 
 
 ## Development
-See [docs/dev.md](docs/dev.md) for various notes and junk
+See [dev](dev) for various notes and junk
 
 
 ## References
