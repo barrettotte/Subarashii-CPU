@@ -21,20 +21,20 @@ ALU Operations:
 
 
 Instruction Set
-  1.  NOP             ; No operation
-  2.  ADD R0,R1,R2    ; R0 = R1 + R2
-  3.  SUB R0,R1,R2    ; R0 = R1 - R2
-  4.  AND R0,R1,R2    ; R0 = R1 & R2
-  5.  ORR R0,R1,R2    ; R0 = R1 | R2
-  6.  NOT R0,R1       ; R0 = ~R1  
-  7.  XOR R0,R1,R2    ; R0 = R1 ^ R2
-  8.  LSR R0,R1       ; R0 = R1 >> 1
-  9.  LSL R0,R1       ; R0 = R1 << 1
-  10. LDI R0,11001100 ; R0 = 11001100 (load byte immediate to register)
-  11. LDW R0,R1       ; R0 = RAM[R1]  (load word to register from memory address)
-  12. STW R0,R1       ; RAM[R0] = R1  (store word at memory address)
-  13. BEQ R0          ; Set PC to value in R0 if Z flag = 0
-  14. HLT             ; halt processor
+  1.  NOP              ; No operation
+  2.  ADD R0,R1,R2     ; R0 = R1 + R2
+  3.  SUB R0,R1,R2     ; R0 = R1 - R2
+  4.  AND R0,R1,R2     ; R0 = R1 & R2
+  5.  ORR R0,R1,R2     ; R0 = R1 | R2
+  6.  NOT R0,R1        ; R0 = ~R1  
+  7.  XOR R0,R1,R2     ; R0 = R1 ^ R2
+  8.  LSR R0,R1        ; R0 = R1 >> 1
+  9.  LSL R0,R1        ; R0 = R1 << 1
+  10. LDI R0,11001100  ; R0 = 11001100 (load byte immediate to register)
+  11. LDW R0,R1,OFFSET ; R0 = RAM[R1]  (load word to register from memory address)
+  12. STW R0,R1,OFFSET ; RAM[R0] = R1  (store word at memory address)
+  13. BEQ R0           ; Set PC to value in R0 if Z flag = 0
+  14. HLT              ; halt processor
   15. ???
   16. ???
 
@@ -76,8 +76,8 @@ Instruction Notes
 
   - Loading a word from register
      0000 0000 0000 0000
-    |LDW | Rd | Rs |     ; Load R0 with 16-bit value stored 
-    LDW R0,R4            ;  at 16-bit memory address in R4
+    |LDW | Rd | Rs | offset  ; Load R0 with 16-bit value stored 
+    LDW R0,R4                ;  at 16-bit memory address in R4
 
 
   - Loading a word from immediates
