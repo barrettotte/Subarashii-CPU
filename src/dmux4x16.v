@@ -1,4 +1,4 @@
-/* 4 to 16 demultiplexer (decoder) */
+/* 4 to 16 demultiplexer (dmux or decoder) */
 
 `timescale 1ns/1ns
 
