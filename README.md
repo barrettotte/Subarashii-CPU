@@ -1,11 +1,16 @@
 # Subarashii-CPU
 
-A homebrew 16-bit RISC CPU.
+A homebrew 16-bit RISC CPU in Verilog.
 
 
 ## Specifications
 * 16-bit RISC, Harvard architecture
 * 64KB RAM
+* Memory mapped I/O
+
+
+## Directories
+TODO:
 
 
 ## Development
