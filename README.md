@@ -12,6 +12,10 @@ A homebrew 16-bit RISC CPU in Verilog.
 ## Directories
 TODO:
 
+## Implementations
+* Logisim
+* Verilog
+
 
 ## Development
 See [dev](dev) for various notes and junk
@@ -20,3 +24,4 @@ See [dev](dev) for various notes and junk
 ## References
 * [Icarus Verilog](http://iverilog.icarus.com/)
 * [GTKwave](http://gtkwave.sourceforge.net/)
+* [Digital Computer Electronics](https://www.amazon.com/Digital-Computer-Electronics-Albert-Malvino/dp/0028005945)
