@@ -37,13 +37,13 @@ module dmux4x16_tb;
 
     // ensure data is not accessible when enable is off
     sel = testvectors[0];
-    #45;
+    #10;
     en = 1'b1;
     
     // test selecting each value
     for(i = 1; i < 16; i++) begin
       sel = testvectors[i];
-      #45;
+      #10;
     end
 
     $finish;

@@ -19,7 +19,7 @@ module reg16_tb;
   reg16 UUT(clk, rst, en, selA, selB, bus, a, b);
 
   always begin
-    clk = ~clk; #10;
+    clk = ~clk; #5;
   end
 
   initial begin

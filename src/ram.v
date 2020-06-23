@@ -5,18 +5,21 @@
 `ifndef _ram
 `define _ram
 
-// 16-bit address line
-// 0-65535 address range
-// 16-bit word
-// 16^2 * 256
-
 module ram(
-  input clk,         // clock
-  input wen,         // write enable
-  input addr [15:0], // memory address
-
+  input  clk,         // clock
+  input  wen,         // write enable
+  input  [15:0] din,  // data to store
+  input  [15:0] addr, // memory address
+  output [15:0] dout  // retrieved data
 );
 
+reg [15:0] memory [65535:0];
+
+always @(posedge clk) begin
+  if(wen) memory[addr] = din;
+end
+
+assign dout = memory[addr];
 
 endmodule
 

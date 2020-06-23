@@ -30,13 +30,16 @@ Instruction Set
   7.  XOR R0,R1,R2     ; R0 = R1 ^ R2
   8.  LSR R0,R1        ; R0 = R1 >> 1
   9.  LSL R0,R1        ; R0 = R1 << 1
-  10. LDI R0,11001100  ; R0 = 11001100 (load byte immediate to register)
-  11. LDW R0,R1,OFFSET ; R0 = RAM[R1]  (load word to register from memory address)
-  12. STW R0,R1,OFFSET ; RAM[R0] = R1  (store word at memory address)
-  13. BEQ R0           ; Set PC to value in R0 if Z flag = 0
-  14. HLT              ; halt processor
-  15. ???
-  16. ???
+  
+  10. LDL R0,00001111  ; R0 = ????????00001111 (load immediate into lower byte of register)
+  11. LDU R0,11110000  ; R0 = 11110000???????? (load immediate into upper byte of register)
+  12. LDW R0,R1,R2     ; R0 = RAM[R1] + offset  (load word to register from memory address)
+  13. STW R0,R1,R2     ; RAM[R0] + offset = R1  (store word at memory address)
+  
+  14. BEQ R0           ; Set PC to value in R0 if Z flag = 0
+
+  15. PSH R0
+  16. POP R0
 
 
 Macro Instructions:
