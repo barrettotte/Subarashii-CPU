@@ -3,11 +3,10 @@
 
 16x16-bit registers
   * R0     - zero register
-  * R1-R11 - general purpose
-  * R12    - scratch register
-  * R13    - status register (flags, control, errors)
-  * R14    - stack pointer
-  * R15    - program counter
+  * R1-R12 - general purpose
+  * R13    - scratch register
+  * R14    - status register (flags, control, errors)
+  * R15    - stack pointer
 
 
 
@@ -44,82 +43,52 @@ Status Register:
 
 
 
-| OPCODE | SYNTAX          | LOGIC                 | DESCRIPTION                            |
-| ------ | --------------- | --------------------- | -------------------------------------- |
-| 0000   | ADD R0,R1,R2    | R0 = R1 + R2          | register addition                      |
-| 0001   | SUB R0,R1,R2    | R0 = R1 - R2          | register subtraction                   |
-| 0010   | AND R0,R1,R2    | R0 = R1 & R2          | logical AND                            |
-| 0011   | ORR R0,R1,R2    | R0 = R1 | R2          | logical OR                             |
-| 0100   | NOT R0,R1       | R0 = ~R1              | logical NOT                            |
-| 0101   | XOR R0,R1,R2    | R0 = R1 ^ R2          | logical XOR                            |
-| 0110   | LSR R0,R1       | R0 = R1 >> 1          | logical shift right                    |
-| 0111   | LSL R0,R1       | R0 = R1 << 1          | logical shift left                     |
-| 1000   | LDL R0,00001111 | R0 = ????????00001111 | load immediate lower                   |
-| 1001   | LDU R0,00001111 | R0 = 00001111???????? | load immediate upper                   |
-| 1010   | LDW R0,R1,R2    | R0 = [R1+R2]          | load word from memory address + offset |
-| 1011   | STW R0,R1,R2    | [R0+R2] = R1          | store word at memory address + offset  |
-| 1100   | BEQ R0          | PC = Z ? R0 : PC      | branch if equal                        |
-| 1101   |
-| 1110   |
-| 1111   |
+| OPCODE | SYNTAX          | LOGIC                  | DESCRIPTION                            |
+| ------ | --------------- | ---------------------- | -------------------------------------- |
+| 0000   | ADD R1,R2,R3    | R1 = R2 + R3           | register addition                      |
+| 0001   | SUB R1,R2,R3    | R1 = R2 - R3           | register subtraction                   |
+| 0010   | AND R1,R2,R3    | R1 = R2 & R3           | logical AND                            |
+| 0011   | ORR R1,R2,R3    | R1 = R2 | R3           | logical OR                             |
+| 0100   | NOT R1,R2       | R1 = ~R2               | logical NOT                            |
+| 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                            |
+| 0110   | LSR R1,R2       | R1 = R2 >> 1           | logical shift right                    |
+| 0111   | LSL R1,R2       | R1 = R2 << 1           | logical shift left                     |
+| 1000   | LLI R1,00001111 | R1 = ????????00001111  | load lower immediate                   |
+| 1001   | LUI R1,00001111 | R1 = 00001111????????  | load upper immediate                   |
+| 1010   | LDW R1,R2,R3    | R1 = [R2+R3]           | load word from memory address          |
+| 1011   | STW R1,R2,R3    | [R1+R2] = R3           | store word at memory address           |
+| 1100   | BIZ R1          | PC = Z ? R1 : PC       | branch if zero flag set                |
+| 1101   | JMP R1          | PC = R1                | jump to address in R1                  |
+| 1110   |                 |                        |                                        |
+| 1111   |                 |                        |                                        |
 
 
 
-
-Macro Instructions:
-  1. INC R1,0x01       
-    * LDI R12,0x01     ; load scratch register with increment
-    * ADD R1,R1,R12    ; increment R0 by R12
+Psuedo Opcodes:
+  1. INC R1,0x01    
+    * XOR R13,R13,R13  ; clear scratch register   
+    * LLI R13,0x01     ; load scratch register with increment
+    * ADD R1,R1,R13    ; increment R0 by R13
   2. DEC R0,0x01
-    * LDI R12,0x01     ; load scratch register with decrement
-    * SUB R0,R0,R12    ; decrement R0 by R12
+    * XOR R13,R13,R13  ; clear scratch register
+    * LLI R13,0x01     ; load scratch register with decrement
+    * SUB R0,R0,R13    ; decrement R0 by R13
   3. PSH R0
-    * XOR R12,R12,R12  ; clear scratch register
-    * LDL R12,0x02     ; load scratch register lower with increment
-    * ADD R14,R14,R12  ; increment stack pointer
-    * STW R14,R0       ; store R0 in stack memory
+    * XOR R13,R13,R13  ; clear scratch register
+    * LLI R13,0x02     ; load scratch register lower with increment
+    * ADD R14,R14,R13  ; increment stack pointer
+    * STW R15,R0       ; store R0 in stack memory
   4. POP R1
-    * XOR R12,R12,R12  ; clear scratch register
-    * LDL R12,0x02     ; load scratch register lower with decrement
-    * SUB R14,R14,R12  ; decrement stack pointer
-    * LDW R1,R14       ; load register from stack
+    * XOR R13,R13,R13  ; clear scratch register
+    * LDL R13,0x02     ; load scratch register lower with decrement
+    * SUB R15,R15,R13  ; decrement stack pointer
+    * LDW R1,R15       ; load register from stack
   5. CMP R1,R2
-    * SUB R12,R1,R2    ; sets flags, uses scratch register
+    * SUB R13,R1,R2    ; sets flags, uses scratch register
   6. CLR R1
     * XOR R1,R1,R1     ; clear register contents
   7. NOP               ; no operation
-    * ADD R0,R0,R0     ;
-
-
-Instruction Notes
-  
-  - Adding two registers
-     0000 0000 0000 0000
-    |ADD | Rd | Rx | Ry |
-    ADD R2,R0,R1         ; Add R0 and R1, store in R2
-
-
-  - Loading an immediate
-     0000 0000 0000 0000
-    |LDI | Rd | imm[8]  |
-    LDI R0,00001111      ; Load 8-bit immediate into R0
-
-
-  - Loading a word from register
-     0000 0000 0000 0000
-    |LDW | Rd | Rs | offset  ; Load R0 with 16-bit value stored 
-    LDW R0,R4                ;  at 16-bit memory address in R4
-
-
-  - Loading a word from immediates
-    0000 0000 0000 0000
-   |LDI | Rd | imm[8]  |
-   LDI R1,00001111       ; load 
-
-   
-    0000 0000 0000 0000
-   |BEQ | R0 | R1 | R2 |
-
+    * LSL R0,R0        ;
 
 
 */
