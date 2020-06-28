@@ -3,7 +3,8 @@
 
 16x16-bit registers
   * R0     - zero register
-  * R1-R12 - general purpose
+  * R1-R11 - general purpose
+  * R12    - link register
   * R13    - scratch register
   * R14    - status register (flags, control, errors)
   * R15    - stack pointer
@@ -55,11 +56,11 @@ Status Register:
 | 0111   | LSL R1,R2       | R1 = R2 << 1           | logical shift left                     |
 | 1000   | LLI R1,00001111 | R1 = ????????00001111  | load lower immediate                   |
 | 1001   | LUI R1,00001111 | R1 = 00001111????????  | load upper immediate                   |
-| 1010   | LDW R1,R2,R3    | R1 = [R2+R3]           | load word from memory address          |
-| 1011   | STW R1,R2,R3    | [R1+R2] = R3           | store word at memory address           |
-| 1100   | BIZ R1          | PC = Z ? R1 : PC       | branch if zero flag set                |
+| 1010   | LDW R1,R2,R3    | R1 = [R2+R3]           | load word from memory address+offset   |
+| 1011   | STW R1,R2,R3    | [R1+R2] = R3           | store word at memory address+offset    |
+| 1100   | BRZ R1          | PC = Z ? R1 : PC       | branch if zero flag set                |
 | 1101   | JMP R1          | PC = R1                | jump to address in R1                  |
-| 1110   |                 |                        |                                        |
+| 1110   | JAL R1,R2       | R2 = PC+1 ; R1 = PC    | jump to R1 and link R2                 |
 | 1111   |                 |                        |                                        |
 
 
