@@ -28,8 +28,8 @@ Status Register:
 | 0     | Z      | Zero             | Result of operation was zero      |
 | 1     | C      | Carry            |                                   |
 | 2     | N      | Negative         | Result of operation was negative  |
-| 3     | V      | Overflow         | Result of operation was too large |
-| 4     | P      | Parity           | Even=1, Odd=0                     |
+| 3     | P      | Parity           | Even=1, Odd=0                     |
+| 4     | V      | Overflow         | Result of operation was too large |
 | 5     | D      | Decimal          | Flag useful for BCD               |
 | 6     | I      | Interrupt Enable |                                   |
 | 7     |        |                  |                                   |

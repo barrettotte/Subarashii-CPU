@@ -11,7 +11,6 @@ module pc(
   input en,           // read enable
   input inc,          // increment pc
   input [15:0] d,     // pc data
-
   output reg [15:0] o // pc out
 );
 
