@@ -54,7 +54,7 @@ Status Register:
 | 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                            |
 | 0110   | LSR R1,R2       | R1 = R2 >> 1           | logical shift right                    |
 | 0111   | LSL R1,R2       | R1 = R2 << 1           | logical shift left                     |
-| 1000   | LLI R1,00001111 | R1 = ????????00001111  | load lower immediate                   |
+| 1000   | ADI R1,00001111 | R1 = ????????00001111  | Add immediate to lower immediate       |
 | 1001   | LUI R1,00001111 | R1 = 00001111????????  | load upper immediate                   |
 | 1010   | LDW R1,R2,R3    | R1 = [R2+R3]           | load word from memory address+offset   |
 | 1011   | STW R1,R2,R3    | [R1+R2] = R3           | store word at memory address+offset    |

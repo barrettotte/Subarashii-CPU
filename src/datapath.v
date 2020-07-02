@@ -22,8 +22,8 @@ module datapath(
   output reg fZ,            // zero flag
   output reg fC,            // carry flag
   output reg fN,            // negative flag
-  output reg fP,            // parity flag
-  // TODO: overflow flag?
+  output reg fE,            // parity flag
+  output reg fV,            // overflow flag
 
   output [15:0] rout,       // register output
   output [15:0] aout        // ALU output (write to selRd)
@@ -36,8 +36,7 @@ assign rout = op1;
 
 regfile(clk, rst, wen, selRd, selRs, selRt, aout, op1, rt);
 
-alu(op1, op2, aluOp, fZ, fC, fN, fP, aluOut);
-// TODO: overflow flag?
+alu(op1, op2, aluOp, fZ, fC, fN, fE, fV, aluOut);
 
 endmodule
 

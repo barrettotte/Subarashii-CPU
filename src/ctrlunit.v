@@ -9,7 +9,7 @@ module ctrlunit(
   input clk,           // clock signal
   input rst,           // reset signal
   input [15:0] ir,     // instruction register
-  input [3:0] status,  // status register
+  input [4:0] status,  // status register
 
   output [3:0] selRd,
   output [3:0] selRs,

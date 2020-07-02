@@ -6,37 +6,89 @@
 `define _alu
 
 module alu(
-  input [15:0] rs,     // register Rs
-  input [15:0] rt,     // register Rt
-  input  [3:0] op,     // ALU operation
+  input [15:0] a,      // operand A
+  input [15:0] b,      // operand B
+  input  [2:0] op,     // ALU operation
 
-  output reg fZ,        // zero flag
-  output reg fC,        // carry flag
-  output reg fN,        // negative flag
-  output reg fP,        // parity flag
-  // output reg fV,     // overflow flag TODO:
-  output reg [15:0] y   // ALU operation result
+  output reg fZ,       // zero flag
+  output reg fC,       // carry flag
+  output reg fN,       // negative flag
+  output reg fE,       // even flag
+  output reg fV,       // overflow flag
+
+  output reg [15:0] o  // ALU operation result
 );
 
+assign fZ = (o == 16'b0);
+assign fN = o[15];
+assign fE = (o[0] == 1'b0) ? 1'b1 : 1'b0; // even : odd
 
-
-always @(rs or rt or op) begin
+always @(*) begin
   case(op)
-    4'b0000:  {fC, y} = rs + rt;                  // ADD
-    4'b0001:  {fC, y} = rs - rt;                  // SUB
-    4'b0010:  {fC, y} = {1'b0, rs & rt};          // AND
-    4'b0011:  {fC, y} = {1'b0, rs | rt};          // ORR
-    4'b0100:  {fC, y} = {1'b0, ~rs};              // NOT
-    4'b0101:  {fC, y} = {1'b0, rs ^ rt};          // XOR
-    4'b0110:  begin fC = rs[0];  y = rs >> 1; end // LSR
-    4'b0111:  begin fC = rs[15]; y = rs << 1; end // LSL
-    default: {fC, y} = {1'b0, rt};                // output Rt
-  endcase
+    
+    // ADD
+    3'b000: begin
+      {fC, o} = a + b;
+      // operands same sign, result different sign
+      fV = (~(a[15] ^ b[15])) & (a[15] ^ o[15]);
+    end
+    
+    // SUB
+    3'b001: begin
+      {fC, o} = a - b;
+      // operands different sign, result same sign as operand 2
+      fV = (a[15] ^ b[15]) & (~(b[15] ^ o[15]));
+    end
 
-  fZ = (y == 16'b0) ? 1'b1 : 1'b0;
-  fN = y[15];
-  fP = (y[0] == 1'b0) ? 1'b1 : 1'b0; // even : odd
-  // fV = 1'b0; // TODO: overflow?
+    // AND
+    3'b010: begin
+      o = a & b;
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // ORR
+    3'b011: begin 
+      o = a | b;
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // NOT
+    3'b100: begin  
+      o = ~a;
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // XOR
+    3'b101: begin 
+      o = a ^ b;
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // LSR
+    3'b110: begin 
+      o = a >> (16'b1 & b);
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // LSL
+    3'b111: begin 
+      o = a << (16'b1 & b);
+      fC = 1'b0;
+      fV = 1'b0;
+    end
+
+    // ADD
+    default: begin
+      {fC, o} = a + b;
+      fV = (~(a[15] ^ b[15])) & (a[15] ^ o[15]);
+    end
+
+  endcase
 
 end
 
