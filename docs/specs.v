@@ -13,34 +13,13 @@
 
 ALU Operations:
   000 - ADD
-  001 - SUB
+  001 - ASR
   010 - AND
   011 - ORR
   100 - NOT
   101 - XOR
   110 - LSR
   111 - LSL
-
-
-Status Register:
-| Index | Symbol | Name             | Description                       |
-| ----- | ------ | ---------------- | --------------------------------- |
-| 0     | Z      | Zero             | Result of operation was zero      |
-| 1     | C      | Carry            |                                   |
-| 2     | N      | Negative         | Result of operation was negative  |
-| 3     | P      | Parity           | Even=1, Odd=0                     |
-| 4     | V      | Overflow         | Result of operation was too large |
-| 5     | D      | Decimal          | Flag useful for BCD               |
-| 6     | I      | Interrupt Enable |                                   |
-| 7     |        |                  |                                   |
-| 8     |        |                  |                                   |
-| 9     |        |                  |                                   |
-| 10    |        |                  |                                   |
-| 11    |        |                  |                                   |
-| 12    |        |                  |                                   |
-| 13    |        |                  |                                   |
-| 14    |        |                  |                                   |
-| 15    |        |                  |                                   |
 
 
 
@@ -54,8 +33,8 @@ Status Register:
 | 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                            |
 | 0110   | LSR R1,R2       | R1 = R2 >> 1           | logical shift right                    |
 | 0111   | LSL R1,R2       | R1 = R2 << 1           | logical shift left                     |
-| 1000   | ADI R1,00001111 | R1 = ????????00001111  | Add immediate to lower immediate       |
-| 1001   | LUI R1,00001111 | R1 = 00001111????????  | load upper immediate                   |
+| 1000   | ADI R1,00001111 | R1 = ????????00001111  | Add immediate to R1                    |
+| 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                |
 | 1010   | LDW R1,R2,R3    | R1 = [R2+R3]           | load word from memory address+offset   |
 | 1011   | STW R1,R2,R3    | [R1+R2] = R3           | store word at memory address+offset    |
 | 1100   | BRZ R1          | PC = Z ? R1 : PC       | branch if zero flag set                |
