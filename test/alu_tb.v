@@ -7,12 +7,12 @@ module alu_tb;
   reg [15:0] b = 16'b0000000000000000;
   reg [ 2:0] op = 3'b000;
 
-  wire fZ, fC, fN, fE, fV;
+  wire fZ, fC, fN, fV;
   wire [15:0] o;
   
   integer testIndex = 0;
 
-  alu UUT(a, b, op, fZ, fC, fN, fE, fV, o);
+  alu UUT(a, b, op, fZ, fC, fN, fV, o);
 
   initial begin
     $dumpfile("out/alu.vcd");

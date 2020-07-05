@@ -18,13 +18,8 @@
 
 
 ## Registers
-16 8-bit registers
+16 16-bit registers
 
-* R0-R11 - general purpose
-* R12 - status register
-* R13 - stack pointer
-* R14 - global data pointer
-* R15 - program counter
 
 
 ## Status Flags

@@ -13,7 +13,6 @@ module alu(
   output reg fZ,       // zero flag
   output reg fC,       // carry flag
   output reg fN,       // negative flag
-  output reg fE,       // even flag
   output reg fV,       // overflow flag
 
   output reg [15:0] o  // ALU operation result
