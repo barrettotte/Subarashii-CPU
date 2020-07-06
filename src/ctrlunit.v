@@ -6,12 +6,11 @@
 `define _ctrlunit
 
 module ctrlunit(
-  input clk,          // clock signal
   input rst,          // reset signal
   input [3:0] opcode, // opcode of instruction
 
   output reg [2:0] aluOp,    // ALU opcode
-  output reg [1:0] regDst    // register destination (00=Rd (imm), 01=Rd, 10=Link, 11=??)
+  output reg [1:0] regDst    // register destination (00=Rd, 01=Rd, 10=Link, 11=Rd)
   output reg [1:0] memToReg, // register to load with memory
   output reg [1:0] aluSrcA,  // ALU operand A source (00=Rs, 01=??,        10=Rs[HI], 11=0)
   output reg [1:0] aluSrcB,  // ALU operand B source (00=Rt, 01=immediate, 10=Rt[LO], 11=0)
@@ -153,7 +152,7 @@ always @(*) begin
       // ADI
       4'b1000: begin
         aluOp = 3'b000;   // ADD op
-        regDst = 2'b00;   // store result in Rd (imm instruction)
+        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b01;  // use immediate
@@ -224,24 +223,24 @@ always @(*) begin
       4'b1101: begin
         aluOp = 3'b000;   // ALU won't be used
         regDst = 2'b10;   // store result in Rd
-        memToReg = 2'b10; // don't put memory in reg
+        memToReg = 2'b10; // link
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
         branch = 1'b0;    // no branching
-        jump = 1'b1;      // no jumping
+        jump = 1'b1;      // jump
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
-        regWrite = 1'b1;  // write ALU result to Rd
+        regWrite = 1'b1;  // write PC to link register
       end
 
       // ???
       4'b1110: begin
-        // Unused
+        // TODO: Unused
       end
 
       // ???
       4'b1111: begin
-        // Unused
+        // TODO: Unused
       end
     endcase
   end

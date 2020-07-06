@@ -9,14 +9,14 @@ module reg16_tb;
   reg selA = 1'b0;
   reg selB = 1'b0;
 
-  reg [15:0] bus = 16'b0;
+  reg [15:0] d = 16'b0;
 
   wire [15:0] a;
   wire [15:0] b;
 
   integer testIndex = 0;
 
-  reg16 UUT(clk, rst, en, selA, selB, bus, a, b);
+  reg16 UUT(clk, rst, en, selA, selB, d, a, b);
 
   always begin
     clk = ~clk; #5;
@@ -27,19 +27,19 @@ module reg16_tb;
     $dumpvars(0, reg16_tb);
     
     en = 1'b1;
-    bus = 16'b1111000011110000;
+    d = 16'b1111000011110000;
     
     selA = 1'b1;
     #45; 
-    testIndex++; // assert a == bus
+    testIndex++; // assert a == d
 
     selA = 1'b0;
     selB = 1'b1;
     #45; 
-    testIndex++; // assert b == bus
+    testIndex++; // assert b == d
 
     en = 1'b0;
-    bus = 16'b1100110011001100;
+    d = 16'b1100110011001100;
     #45; 
     testIndex++; // assert b == 16'b1111000011110000
 

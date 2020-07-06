@@ -5,6 +5,7 @@ module ram_tb;
 
   reg clk  = 1'b0;
   reg wen  = 1'b0;
+  reg ren  = 1'b0;
 
   reg [15:0] din = 16'b0;
   reg [15:0] addr = 16'b0;
@@ -13,7 +14,7 @@ module ram_tb;
 
   integer testIndex = 0;
 
-  ram UUT(clk, wen, din, addr, dout);
+  ram UUT(clk, wen, ren, din, addr, dout);
 
   always begin
     clk = ~clk; #5;

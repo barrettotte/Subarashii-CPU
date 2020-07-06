@@ -17,7 +17,7 @@ module pc(
 always @(posedge clk) begin
   if(rst)      o <= 16'b0;
   else if(en)  o <= d;
-  else if(inc) o <= o + 1;
+  else if(inc) o <= o + 2;
   else         o <= o;
 end
 
