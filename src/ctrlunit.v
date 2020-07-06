@@ -6,11 +6,12 @@
 `define _ctrlunit
 
 module ctrlunit(
-  input rst,          // reset signal
-  input [3:0] opcode, // opcode of instruction
+  input clk,                 // clock signal
+  input rst,                 // reset signal
+  input [3:0] opcode,        // opcode of instruction
 
   output reg [2:0] aluOp,    // ALU opcode
-  output reg [1:0] regDst    // register destination (00=Rd, 01=Rd, 10=Link, 11=Rd)
+  output reg [1:0] regDst,   // register destination (00=Rd, 01=Rd, 10=Link, 11=Rd)
   output reg [1:0] memToReg, // register to load with memory
   output reg [1:0] aluSrcA,  // ALU operand A source (00=Rs, 01=??,        10=Rs[HI], 11=0)
   output reg [1:0] aluSrcB,  // ALU operand B source (00=Rt, 01=immediate, 10=Rt[LO], 11=0)
@@ -19,6 +20,7 @@ module ctrlunit(
   output reg memRead,        // read from memory
   output reg memWrite,       // write to memory
   output reg regWrite,       // write to register
+  output reg signExt         // sign extend immediate
 );
 
 always @(*) begin
@@ -33,6 +35,7 @@ always @(*) begin
     memRead = 1'b0;
     memWrite = 1'b0;
     regWrite = 1'b0;
+    signExt  = 1'b0;
   end
   else begin
     case(opcode)
@@ -49,6 +52,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // SUB
@@ -63,6 +67,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // AND
@@ -77,6 +82,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // ORR
@@ -91,6 +97,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // NOT
@@ -105,6 +112,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // XOR
@@ -119,6 +127,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // LSR
@@ -133,6 +142,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // LSL
@@ -147,6 +157,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // ADI
@@ -161,6 +172,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // SWP
@@ -175,6 +187,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write ALU result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // LDW
@@ -189,6 +202,7 @@ always @(*) begin
         memRead = 1'b1;   // read from memory
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write memory read result to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // STW
@@ -203,20 +217,22 @@ always @(*) begin
         memRead = 1'b0;   // don't read from memory
         memWrite = 1'b1;  // write to memory
         regWrite = 1'b0;  // don't write to Rd
+        signExt  = 1'b0;  // no sign extending
       end
 
       // BRZ
       4'b1100: begin
-        aluOp = 3'b000;   // Use ADD op (Rs + zero) to control flags
+        aluOp = 3'b001;   // Use SUB op (Rs - Rt) to control flags
         regDst = 2'b00;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
-        aluSrcB = 2'b11;  // use zero
+        aluSrcB = 2'b00;  // use Rt
         branch = 1'b1;    // use branching
         jump = 1'b0;      // no jumping
         memRead = 1'b0;   // don't read from memory
         memWrite = 1'b0;  // don't write to memory
         regWrite = 1'b0;  // don't write to Rd
+        signExt  = 1'b1;  // sign extend immediate
       end
 
       // JAL
@@ -231,6 +247,7 @@ always @(*) begin
         memRead = 1'b0;   // no memory read
         memWrite = 1'b0;  // no memory write
         regWrite = 1'b1;  // write PC to link register
+        signExt  = 1'b0;  // no sign extending
       end
 
       // ???

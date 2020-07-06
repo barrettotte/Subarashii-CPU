@@ -6,13 +6,19 @@
 `define _rom
 
 module rom(
-  input  [15:0] addr, // memory address (PC)
-  output [15:0] o     // retrieved data (instruction)
+  input  [15:0] addr,  // memory address (PC)
+  output reg [15:0] o  // retrieved data (instruction)
 );
 
 reg memory [65535:0];
 
-assign o = memory[addr];
+// fake ROM
+always @(addr) begin
+  case(addr)
+    16'b0:   o <= 16'b1000_0001_00000010; // ADD R1,0x02
+    default: o <= 16'b0;
+  endcase
+end
 
 endmodule
 

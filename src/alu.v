@@ -18,11 +18,10 @@ module alu(
   output reg [15:0] o  // ALU operation result
 );
 
-assign fZ = (o == 16'b0);
-assign fN = o[15];
-assign fE = (o[0] == 1'b0) ? 1'b1 : 1'b0; // even : odd
-
 always @(*) begin
+  fZ = (o == 16'b0);
+  fN = o[15];
+  
   case(op)
     
     // ADD
