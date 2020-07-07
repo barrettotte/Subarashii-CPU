@@ -68,14 +68,14 @@ always @(*) begin
 
     // LSR
     3'b110: begin 
-      o = a >> (16'b1 & b);
+      o = a >> 1;
       fC = 1'b0;
       fV = 1'b0;
     end
 
     // LSL
     3'b111: begin 
-      o = a << (16'b1 & b);
+      o = a << 1;
       fC = 1'b0;
       fV = 1'b0;
     end

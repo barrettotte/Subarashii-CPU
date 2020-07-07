@@ -40,7 +40,7 @@ module regfile(
   dmux4x16 d1(.en(1'b1), .sel(selRs), .d(enRs));
   dmux4x16 d2(.en(1'b1), .sel(selRt), .d(enRt));
 
-  reg16 r00(.clk(clk), .rst(rst), .en(enRd[0]),  .selA(enRs[0]),  .selB(enRt[0]),  .d(rd), .a(rs), .b(rt));
+  reg16 r00(.clk(clk), .rst(rst), .en(1'b0),     .selA(enRs[0]),  .selB(enRt[0]),  .d(rd), .a(rs), .b(rt));
   reg16 r01(.clk(clk), .rst(rst), .en(enRd[1]),  .selA(enRs[1]),  .selB(enRt[1]),  .d(rd), .a(rs), .b(rt));
   reg16 r02(.clk(clk), .rst(rst), .en(enRd[2]),  .selA(enRs[2]),  .selB(enRt[2]),  .d(rd), .a(rs), .b(rt));
   reg16 r03(.clk(clk), .rst(rst), .en(enRd[3]),  .selA(enRs[3]),  .selB(enRt[3]),  .d(rd), .a(rs), .b(rt));

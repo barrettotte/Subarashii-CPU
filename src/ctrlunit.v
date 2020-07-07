@@ -32,6 +32,7 @@ always @(*) begin
     aluSrcA = 2'b0;
     aluSrcB = 2'b0;
     branch = 1'b0;
+    jump = 1'b0;
     memRead = 1'b0;
     memWrite = 1'b0;
     regWrite = 1'b0;
