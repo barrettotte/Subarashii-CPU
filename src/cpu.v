@@ -106,7 +106,7 @@ regfile regfile( .clk(clk), .rst(rst), .wen(regWrite), .selRd(selRd),
 // ALU operand selection (muxed ALU inputs)
 assign aluOperandA = (aluSrcA == 2'b00) ? rs                   // Rs
                       : (aluSrcA == 2'b01) ? immExt            // Immediate (extended)
-                       : (aluSrcA == 2'b10) ? {rs[15:8], 8'b0} // Rs[HI] (SWP)
+                       : (aluSrcA == 2'b10) ? {rs[7:0], 8'b0}  // Rs[LO] (SWP)
                         : 16'b0;                               // Zero
 
 assign aluOperandB = (aluSrcB == 2'b00) ? rt                   // Rt
@@ -133,10 +133,10 @@ assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz  // branch to relative
                   : pc2;                                   // just do next instruction
 
 
-ram ram( .clk(clk), .wen(memWrite), .ren(memRead), .din(rt), .addr(aluResult), .dout(mdr) );
+ram ram( .clk(clk), .wen(memWrite), .ren(memRead), .din(rt), .addr(aluResult), .dout(ramOut) );
 
 // write back to register file
-assign rd = (memToReg == 2'b01) ? mdr               // memory to register (LDW)
+assign rd = (memToReg == 2'b01) ? ramOut            // memory to register (LDW)
              : (memToReg == 2'b10) ? pcCur + 16'd2  // store next PC value (JAL)
              : aluResult;                           // act as normal
 

@@ -56,8 +56,8 @@ Status Register:
 | 0111   | LSL R1,R2,R0    | R1 = R2 << 1           | logical shift left                                   |
 | 1000   | ADI R1,00001111 | R1 = ????????00001111  | Add immediate to R1                                  |
 | 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                              |
-| 1010   | LDW R1,R2,0011  | R1 = [R2, page]        | load word into R1 from memory address R2 on page imm |
-| 1011   | STW R2,R1,0011  | [R2, page] = R1        | store word in R1 at memory address R2 on page imm    |
+| 1010   | LDW 0001,R1,R2  | R1 = [R2, offset]      | load word into R1 from memory address R2 + offset    |
+| 1011   | STW 0001,R1,R1  | [R2, offset] = R1      | store word in R1 at memory address R2 + offset       |
 | 1100   | BRZ R1,00001111 | PC = Z ? imm : PC      | branch to immediate offset if zero flag set          |
 | 1101   | JAL R1,R2       | R1 = PC+2 ; PC = R2    | jump to R2 and link to R1                            |
 | 1110   |                 |                        |                                                      |
