@@ -2,23 +2,23 @@
 
 A homebrew 16-bit RISC CPU in Verilog.
 
+This is the basis implementation and could change in the future.
+
 
 ## Specifications
-* 16-bit RISC, Harvard architecture
+* 16-bit RISC
+* Harvard architecture
+* single cycle execution
+* 16 x 16-bit registers
+* 16-bit instructions
 * 64KB RAM
 * Memory mapped I/O
 
 
-## Directories
-TODO:
-
-## Implementations
-* Logisim
-* Verilog
-
-
-## Development
-See [dev](dev) for various notes and junk
+## Future Goals
+* Assembler; probably in C, Python, or Rust
+* Video card and interface
+* Serial interface
 
 
 ## References
