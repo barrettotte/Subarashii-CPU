@@ -20,7 +20,7 @@ I designed this to learn more about computer architecture/organization.
 | 0000   | ```ADD R1,R2,R3```    | R1 = R2 + R3           | register addition                                       |
 | 0001   | ```SUB R1,R2,R3```    | R1 = R2 - R3           | register subtraction                                    |
 | 0010   | ```AND R1,R2,R3```    | R1 = R2 & R3           | logical AND                                             |
-| 0011   | ```ORR R1,R2,R3```    | R1 = R2 | R3           | logical OR                                              |
+| 0011   | ```ORR R1,R2,R3```    | R1 = R2 \| R3           | logical OR                                              |
 | 0100   | ```NOT R1,R2,R0```    | R1 = ~R2               | logical NOT                                             |
 | 0101   | ```XOR R1,R2,R3```    | R1 = R2 ^ R3           | logical XOR                                             |
 | 0110   | ```LSR R1,R2,R0```    | R1 = R2 >> 1           | logical shift right                                     |
