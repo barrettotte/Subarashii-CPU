@@ -20,6 +20,8 @@ module cpu(
   output [15:0] tb_pc,
   output [15:0] tb_pcn,
   output [15:0] tb_pc2,
+  output [15:0] tb_pcbrz,
+  output [15:0] tb_rtshift,
   output [15:0] tb_ir,
 
   output [3:0] tb_selRd,
@@ -52,16 +54,18 @@ module cpu(
 wire [15:0] instruction;     // machine code read from ROM
 wire [15:0] mdr;             // memory data register
 wire [15:0] ramOut;          // value read from RAM
+wire signed [15:0] rtShift;  // shifted rt (relative branching)
 
 // immediate wires
 wire [15:0] immExt;          // immediate extension (sign or zero)
-wire signed [15:0] immShift; // immediate extension, shifted left once
-wire [15:0] immExt2c;        // immediate extension (shifted) two's complement
+// wire signed [15:0] immShift; // immediate extension, shifted left once
+// wire [15:0] immExt2c;        // immediate extension (shifted) two's complement
 
 // program counter wires
 reg [15:0] pcCur;            // current program counter
 wire [15:0] pcNext;          // next PC value
 wire [15:0] pc2;             // PC next instruction (2 byte instructions)
+wire [15:0] pcBrz;           // PC value for BRZ
 
 // control unit wires
 wire [2:0] aluOp;
@@ -96,7 +100,7 @@ ctrlunit ctrlunit( .clk(clk), .rst(rst), .opcode(instruction[15:12]), .aluOp(alu
 
 // register selection
 assign selRd = instruction[11:8];
-assign selRs = instruction[7:4];
+assign selRs = (instruction[15:12] == 4'b1000) ? instruction[11:8] : instruction[7:4];
 assign selRt = instruction[3:0];
 
 
@@ -122,14 +126,16 @@ alu alu( .a(aluOperandA), .b(aluOperandB), .op(aluOp), .fZ(aluStatus[0]),
 
 // Immediate extensions (zero or sign extended)
 assign immExt = {((signExt == 1'b1) ? {8{instruction[7]}} : {8{1'b0}}), instruction[7:0]};
-assign immShift = {immExt[14:0], 1'b0}; // left shift 1 (2 byte instruction)
-assign immExt2c = ~(immShift) + 1'b1;   // twos complement
+// assign immShift = {immExt[14:0], 1'b0}; // left shift 1 (2 byte instruction)
+// assign immExt2c = ~(immShift) + 1'b1;   // twos complement
 
 
 // Assign next program counter (handle jump and branch)
-assign pc2 = pcCur + 16'd2;  // 2 byte instructions
-assign pcBrz = (immShift[15] == 1'b1) ? (pc2 - immExt2c) : (pc2 + immShift);
-assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz    // branch to relative address
+assign rtShift = {rt[14:0], 1'b0}; // left shift 1 (2 byte instruction)
+
+assign pc2 = pcCur + 16'd2;  // 2 byte instruction
+assign pcBrz = (rtShift[15] == 1'b1) ? (pc2 - (~(rtShift) + 1'b1)) : (pc2 + rtShift);
+assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz    // branch to relative address if Z
                 : (jump == 1'b1) ? rs                        // jump to absolute address
                   : pc2;                                     // just to next instruction
 
@@ -143,12 +149,12 @@ assign rd = (regWrite == 1'b0) ? rd                  // do not write new value t
                 : aluResult;                         // act as normal
 
 
-
-
 // output for testbenches
 assign tb_pc = pcCur;
 assign tb_pcn = pcNext;
 assign tb_pc2 = pc2;
+assign tb_pcbrz = pcBrz;
+assign tb_rtshift = rtShift;
 assign tb_ir = instruction;
 
 assign tb_selRd = selRd;

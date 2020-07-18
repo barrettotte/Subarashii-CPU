@@ -60,10 +60,17 @@ Status Register:
 | 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                                 |
 | 1010   | LDW R1,R2,R0    | R1 = [R2]              | load word into R1 from memory address R2                |
 | 1011   | STW R0,R2,R1    | [R2] = R1              | store word in R1 at memory address R2                   |
-| 1100   | BRZ R1,R2,R3    | PC = R2-R3=Z ? R1 : PC | relative branch to R1 if result of R2-R3 sets zero flag |
+| 1100   | BRZ R0,R1,R2    | PC = R1-0=Z ? R2 : PC  | relative branch to R2 if result of R1-0 sets zero flag  |
 | 1101   | JAL R1,R2       | R1 = PC+2 ; PC = R2    | jump to address R2 and link to R1                       |
 | 1110   |                 |                        |                                                         |
 | 1111   |                 |                        |                                                         |
+
+
+
+IDEA: 
+For BRZ Rd could be used to branch on different status flags.
+BRZ could be changed to BRI (Branch If), allowing 4 flags and combinations
+ex: BRI 0011,R0,R1 -> Branch if carry and zero flags set
 
 
 

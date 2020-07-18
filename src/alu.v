@@ -19,9 +19,6 @@ module alu(
 );
 
 always @(*) begin
-  fZ = (o == 16'b0);
-  fN = o[15];
-  
   case(op)
     
     // ADD
@@ -88,6 +85,8 @@ always @(*) begin
 
   endcase
 
+  fZ = (o == 16'b0) ? 1'b1 : 1'b0;
+  fN = o[15];
 end
 
 endmodule

@@ -8,6 +8,8 @@ module cpu_tb;
   wire [15:0] tb_pc;
   wire [15:0] tb_pcn;
   wire [15:0] tb_pc2;
+  wire [15:0] tb_pcbrz;
+  wire [15:0] tb_rtshift;
   wire [15:0] tb_ir;
 
   wire [3:0]  tb_selRd;
@@ -35,8 +37,9 @@ module cpu_tb;
   wire tb_ctrl_regWrite;
   wire tb_ctrl_signExt;
 
-  cpu UUT(clk, rst, 
-    tb_pc, tb_pcn, tb_pc2, tb_ir, 
+  cpu UUT(
+    clk, rst, 
+    tb_pc, tb_pcn, tb_pc2, tb_pcbrz, tb_rtshift, tb_ir, 
     tb_selRd, tb_selRs, tb_selRt,
     tb_rd, tb_rs, tb_rt,
     tb_aluOut, tb_aluOperandA, tb_aluOperandB, tb_aluStatus,

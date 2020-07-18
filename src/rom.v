@@ -49,17 +49,18 @@ always @(addr) begin
     16'd50:  o <= 16'b0101_0001_0001_0001; // XOR R1,R1,R1
     16'd52:  o <= 16'b1010_0001_0010_0000; // LDW R1,R2,R0
     16'd54:  o <= 16'b0000_0000_0001_0000; // ADD R0,R1,R0
-    */
     // Reset R1-R2
     16'd56:  o <= 16'b0101_0001_0001_0001; // XOR R1,R1,R1
     16'd58:  o <= 16'b0101_0010_0010_0010; // XOR R2,R2,R2
     // Test Branching
     16'd60:  o <= 16'b1000_0001_0000_0011; // ADI R1,0x03  (skip 3 instructions ahead if Z)
-    16'd62:  o <= 16'b1100_0001_0000_0000; // BRZ R1,R1,R1 (R1-R1=0 -> always branch)
+    16'd62:  o <= 16'b1100_0000_0000_0001; // BRZ R0,R0,R1 (R0-0=Z ; always branch)
     16'd64:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (should be skipped)
     16'd66:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (should be skipped)
     16'd68:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (should be skipped)
-    16'd70:  o <= 16'b1000_0010_0000_0111; // ADI R2,0x07
+    16'd70:  o <= 16'b1000_0001_0000_0111; // ADI R1,0x07
+    16'd72:  o <= 16'b0101_0001_0001_0001; // XOR R1,R1,R1
+    */
 
     default: o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (NOP)
   endcase

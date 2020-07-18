@@ -223,17 +223,17 @@ always @(*) begin
 
       // BRZ
       4'b1100: begin
-        aluOp = 3'b001;   // Use SUB op (Rs - Rt) to control flags
+        aluOp = 3'b000;   // Use ADD op to check zero flag
         regDst = 2'b00;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
-        aluSrcB = 2'b00;  // use Rt
+        aluSrcB = 2'b11;  // use zero
         branch = 1'b1;    // use branching
         jump = 1'b0;      // no jumping
         memRead = 1'b0;   // don't read from memory
         memWrite = 1'b0;  // don't write to memory
         regWrite = 1'b0;  // don't write to Rd
-        signExt  = 1'b1;  // sign extend immediate
+        signExt  = 1'b0;  // no sign extending
       end
 
       // JAL
