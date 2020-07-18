@@ -17,22 +17,22 @@ I designed this to learn more about computer architecture/organization.
 ## Instruction Set
 | Opcode | Syntax          | Logic                  | Description                                             |
 | ------ | --------------- | ---------------------- | ------------------------------------------------------- |
-| 0000   | ADD R1,R2,R3    | R1 = R2 + R3           | register addition                                       |
-| 0001   | SUB R1,R2,R3    | R1 = R2 - R3           | register subtraction                                    |
-| 0010   | AND R1,R2,R3    | R1 = R2 & R3           | logical AND                                             |
-| 0011   | ORR R1,R2,R3    | R1 = R2 | R3           | logical OR                                              |
-| 0100   | NOT R1,R2,R0    | R1 = ~R2               | logical NOT                                             |
-| 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                                             |
-| 0110   | LSR R1,R2,R0    | R1 = R2 >> 1           | logical shift right                                     |
-| 0111   | LSL R1,R2,R0    | R1 = R2 << 1           | logical shift left                                      |
-| 1000   | ADI R1,00001111 | R1 += 0000000000001111 | Add immediate to R1                                     |
-| 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                                 |
-| 1010   | LDW R1,R2,R0    | R1 = [R2]              | load word into R1 from memory address R2                |
-| 1011   | STW R0,R2,R1    | [R2] = R1              | store word in R1 at memory address R2                   |
-| 1100   | BRZ R0,R1,R2    | PC = R1-0=Z ? R2 : PC  | relative branch to R2 if result of R1-0 sets zero flag  |
-| 1101   | JAL R1,R2       | R1 = PC+2 ; PC = R2    | jump to address R2 and link to R1                       |
-| 1110   |                 |                        |                                                         |
-| 1111   |                 |                        |                                                         |
+| 0000   | ```ADD R1,R2,R3```    | R1 = R2 + R3           | register addition                                       |
+| 0001   | ```SUB R1,R2,R3```    | R1 = R2 - R3           | register subtraction                                    |
+| 0010   | ```AND R1,R2,R3```    | R1 = R2 & R3           | logical AND                                             |
+| 0011   | ```ORR R1,R2,R3```    | R1 = R2 | R3           | logical OR                                              |
+| 0100   | ```NOT R1,R2,R0```    | R1 = ~R2               | logical NOT                                             |
+| 0101   | ```XOR R1,R2,R3```    | R1 = R2 ^ R3           | logical XOR                                             |
+| 0110   | ```LSR R1,R2,R0```    | R1 = R2 >> 1           | logical shift right                                     |
+| 0111   | ```LSL R1,R2,R0```    | R1 = R2 << 1           | logical shift left                                      |
+| 1000   | ```ADI R1,00001111``` | R1 += 0000000000001111 | Add immediate to R1                                     |
+| 1001   | ```SWP R1,R2,R3```    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                                 |
+| 1010   | ```LDW R1,R2,R0```    | R1 = [R2]              | load word into R1 from memory address R2                |
+| 1011   | ```STW R0,R2,R1```    | [R2] = R1              | store word in R1 at memory address R2                   |
+| 1100   | ```BRZ R0,R1,R2```    | PC = R1-0=Z ? R2 : PC  | relative branch to R2 if result of R1-0 sets zero flag  |
+| 1101   | ```JAL R1,R2```       | R1 = PC+2 ; PC = R2    | jump to address R2 and link to R1                       |
+| 1110   | ``` ```               |                        |                                                         |
+| 1111   | ``` ```               |                        |                                                         |
 
 
 Note: I left two instructions open so I can add new features or any missing functionality; I'm sure I missed something.
