@@ -11,7 +11,6 @@ module ctrlunit(
   input [3:0] opcode,        // opcode of instruction
 
   output reg [2:0] aluOp,    // ALU opcode
-  output reg [1:0] regDst,   // register destination (00=Rd, 01=Rd, 10=Link, 11=Rd)
   output reg [1:0] memToReg, // register to load with memory
   output reg [1:0] aluSrcA,  // ALU operand A source (00=Rs, 01=??,        10=Rs[HI], 11=0)
   output reg [1:0] aluSrcB,  // ALU operand B source (00=Rt, 01=immediate, 10=Rt[LO], 11=0)
@@ -27,7 +26,6 @@ always @(*) begin
 
   if(rst == 1'b1) begin
     aluOp = 2'b00;
-    regDst = 2'b00;
     memToReg = 2'b0;
     aluSrcA = 2'b0;
     aluSrcB = 2'b0;
@@ -44,7 +42,6 @@ always @(*) begin
       // ADD
       4'b0000: begin
         aluOp = 3'b000;   // ADD op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -59,7 +56,6 @@ always @(*) begin
       // SUB
       4'b0001: begin
         aluOp = 3'b001;   // SUB op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -74,7 +70,6 @@ always @(*) begin
       // AND
       4'b0010: begin
         aluOp = 3'b010;   // AND op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -89,7 +84,6 @@ always @(*) begin
       // ORR
       4'b0011: begin
         aluOp = 3'b011;   // ORR op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -104,7 +98,6 @@ always @(*) begin
       // NOT
       4'b0100: begin
         aluOp = 3'b100;   // NOT op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -119,7 +112,6 @@ always @(*) begin
       // XOR
       4'b0101: begin
         aluOp = 3'b101;   // XOR op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -134,7 +126,6 @@ always @(*) begin
       // LSR
       4'b0110: begin
         aluOp = 3'b110;   // ADD op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -149,7 +140,6 @@ always @(*) begin
       // LSL
       4'b0111: begin
         aluOp = 3'b111;   // ADD op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b00;  // use Rt
@@ -164,7 +154,6 @@ always @(*) begin
       // ADI
       4'b1000: begin
         aluOp = 3'b000;   // ADD op
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b01;  // use immediate
@@ -179,7 +168,6 @@ always @(*) begin
       // SWP
       4'b1001: begin
         aluOp = 3'b000;   // Use ADD op to combine bytes
-        regDst = 2'b01;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b10;  // use Rs hi byte
         aluSrcB = 2'b10;  // use Rt lo byte
@@ -194,7 +182,6 @@ always @(*) begin
       // LDW
       4'b1010: begin
         aluOp = 3'b000;   // Use ADD op to build address
-        regDst = 2'b00;   // store result in Rd
         memToReg = 2'b01; // load memory into Rd
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b11;  // use zero
@@ -209,7 +196,6 @@ always @(*) begin
       // STW
       4'b1011: begin
         aluOp = 3'b000;   // Use ADD op to build address
-        regDst = 2'b00;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b11;  // use zero
@@ -224,7 +210,6 @@ always @(*) begin
       // BRZ
       4'b1100: begin
         aluOp = 3'b000;   // Use ADD op to check zero flag
-        regDst = 2'b00;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
         aluSrcA = 2'b00;  // use Rs
         aluSrcB = 2'b11;  // use zero
@@ -239,7 +224,6 @@ always @(*) begin
       // JAL
       4'b1101: begin
         aluOp = 3'b000;   // ALU won't be used
-        regDst = 2'b10;   // store result in Rd
         memToReg = 2'b10; // link
         aluSrcA = 2'b11;  // use zero
         aluSrcB = 2'b11;  // use zero

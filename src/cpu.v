@@ -13,53 +13,21 @@
 
 
 module cpu(
-  input clk,                // clock signal
-  input rst,                // reset signal
-
-  // output ports for testbenches
-  output [15:0] tb_pc,
-  output [15:0] tb_pcn,
-  output [15:0] tb_pc2,
-  output [15:0] tb_pcbrz,
-  output [15:0] tb_rtshift,
-  output [15:0] tb_ir,
-
-  output [3:0] tb_selRd,
-  output [3:0] tb_selRs,
-  output [3:0] tb_selRt,
-
-  output [15:0] tb_rd,
-  output [15:0] tb_rs,
-  output [15:0] tb_rt,
-
-  output [15:0] tb_aluOut,
-  output [15:0] tb_aluOperandA,
-  output [15:0] tb_aluOperandB,
-  output [3:0]  tb_aluStatus,
-
-  output [2:0] tb_ctrl_aluOp, 
-  output [1:0] tb_ctrl_regDst, 
-  output [1:0] tb_ctrl_memToReg, 
-  output [1:0] tb_ctrl_aluSrcA,
-  output [1:0] tb_ctrl_aluSrcB, 
-  output tb_ctrl_jump, 
-  output tb_ctrl_branch, 
-  output tb_ctrl_memRead, 
-  output tb_ctrl_memWrite, 
-  output tb_ctrl_regWrite, 
-  output tb_ctrl_signExt
-
+  input clk,                    // clock signal
+  input rst,                    // reset signal
+  // output ports for testbench
+  output [15:0] tb_pc,          // program counter
+  output [15:0] tb_ir,          // instruction register
+  output [15:0] tb_rd,          // Rd value
+  output [15:0] tb_rs,          // Rs value
+  output [15:0] tb_rt,          // Rt value
+  output [3:0]  tb_aluStatus    // ALU status flags
 );
 
 wire [15:0] instruction;     // machine code read from ROM
-wire [15:0] mdr;             // memory data register
 wire [15:0] ramOut;          // value read from RAM
 wire signed [15:0] rtShift;  // shifted rt (relative branching)
-
-// immediate wires
 wire [15:0] immExt;          // immediate extension (sign or zero)
-// wire signed [15:0] immShift; // immediate extension, shifted left once
-// wire [15:0] immExt2c;        // immediate extension (shifted) two's complement
 
 // program counter wires
 reg [15:0] pcCur;            // current program counter
@@ -69,7 +37,7 @@ wire [15:0] pcBrz;           // PC value for BRZ
 
 // control unit wires
 wire [2:0] aluOp;
-wire [1:0] regDst, memToReg, aluSrcA, aluSrcB;
+wire [1:0] memToReg, aluSrcA, aluSrcB;
 wire jump, branch, memRead, memWrite, regWrite, signExt;
 
 // reg file wires
@@ -93,9 +61,8 @@ end
 rom rom( .addr(pcCur), .o(instruction) );
 
 ctrlunit ctrlunit( .clk(clk), .rst(rst), .opcode(instruction[15:12]), .aluOp(aluOp), 
-  .regDst(regDst), .memToReg(memToReg), .aluSrcA(aluSrcA),
-  .aluSrcB(aluSrcB), .jump(jump), .branch(branch), .memRead(memRead), 
-  .memWrite(memWrite), .regWrite(regWrite), .signExt(signExt) );
+  .memToReg(memToReg), .aluSrcA(aluSrcA), .aluSrcB(aluSrcB), .jump(jump), .branch(branch), 
+  .memRead(memRead), .memWrite(memWrite), .regWrite(regWrite), .signExt(signExt) );
 
 
 // register selection
@@ -124,16 +91,13 @@ alu alu( .a(aluOperandA), .b(aluOperandB), .op(aluOp), .fZ(aluStatus[0]),
   .fC(aluStatus[1]), .fN(aluStatus[2]), .fV(aluStatus[3]), .o(aluResult) );
 
 
-// Immediate extensions (zero or sign extended)
+// Immediate extensions (zero or sign extended) -> not used right now...but I think I'll need it?
 assign immExt = {((signExt == 1'b1) ? {8{instruction[7]}} : {8{1'b0}}), instruction[7:0]};
-// assign immShift = {immExt[14:0], 1'b0}; // left shift 1 (2 byte instruction)
-// assign immExt2c = ~(immShift) + 1'b1;   // twos complement
 
 
 // Assign next program counter (handle jump and branch)
-assign rtShift = {rt[14:0], 1'b0}; // left shift 1 (2 byte instruction)
-
-assign pc2 = pcCur + 16'd2;  // 2 byte instruction
+assign rtShift = {rt[14:0], 1'b0};                           // left shift 1 (2 byte instruction)
+assign pc2 = pcCur + 16'd2;                                  // 2 byte instruction
 assign pcBrz = (rtShift[15] == 1'b1) ? (pc2 - (~(rtShift) + 1'b1)) : (pc2 + rtShift);
 assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz    // branch to relative address if Z
                 : (jump == 1'b1) ? rs                        // jump to absolute address
@@ -149,39 +113,13 @@ assign rd = (regWrite == 1'b0) ? rd                  // do not write new value t
                 : aluResult;                         // act as normal
 
 
-// output for testbenches
+// output for testbench
 assign tb_pc = pcCur;
-assign tb_pcn = pcNext;
-assign tb_pc2 = pc2;
-assign tb_pcbrz = pcBrz;
-assign tb_rtshift = rtShift;
 assign tb_ir = instruction;
-
-assign tb_selRd = selRd;
-assign tb_selRs = selRs;
-assign tb_selRt = selRt;
-
 assign tb_rd = rd;
 assign tb_rs = rs;
 assign tb_rt = rt;
-
-assign tb_aluOut = aluResult;
-assign tb_aluOperandA = aluOperandA;
-assign tb_aluOperandB = aluOperandB;
 assign tb_aluStatus = aluStatus;
-
-assign tb_ctrl_aluOp = aluOp;
-assign tb_ctrl_regDst = regDst;
-assign tb_ctrl_memToReg = memToReg;
-assign tb_ctrl_aluSrcA = aluSrcA;
-assign tb_ctrl_aluSrcB = aluSrcB;
-assign tb_ctrl_jump = jump;
-assign tb_ctrl_branch = branch;
-assign tb_ctrl_memRead = memRead;
-assign tb_ctrl_memWrite = memWrite;
-assign tb_ctrl_regWrite = regWrite;
-assign tb_ctrl_signExt = signExt;
-
 
 endmodule
 

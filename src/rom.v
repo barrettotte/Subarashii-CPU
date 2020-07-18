@@ -18,7 +18,7 @@ reg [15:0] memory [65535:0];
 always @(addr) begin
   case(addr)
     // Test ALU-oriented instructions
-    /*16'd00:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (NOP)
+    16'd00:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (NOP)
     16'd02:  o <= 16'b1000_0001_0000_0010; // ADI R1,0x02
     16'd04:  o <= 16'b1000_0010_0000_0001; // ADI R2,0x01
     16'd06:  o <= 16'b0000_0011_0010_0001; // ADD R3,R2,R1
@@ -60,7 +60,6 @@ always @(addr) begin
     16'd66:  o <= 16'b0000_0000_0000_0000; // ADD R0,R0,R0 (should be skipped)
     16'd68:  o <= 16'b1000_0001_0000_0111; // ADI R1,0x07
     16'd70:  o <= 16'b0101_0001_0001_0001; // XOR R1,R1,R1
-    */
     // Test Jump and Link
     16'd72:  o <= 16'b1000_0010_0101_0010; // ADI R1,0x52  (jump to address 82)
     16'd74:  o <= 16'b1101_0001_0010_0000; // JAL R1,R2,R0 (link to R1, jump to R2)
