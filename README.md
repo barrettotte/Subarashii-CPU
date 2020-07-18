@@ -25,7 +25,7 @@ I designed this to learn more about computer architecture/organization.
 | 0101   | ```XOR R1,R2,R3```    | R1 = R2 ^ R3           | logical XOR                                             |
 | 0110   | ```LSR R1,R2,R0```    | R1 = R2 >> 1           | logical shift right                                     |
 | 0111   | ```LSL R1,R2,R0```    | R1 = R2 << 1           | logical shift left                                      |
-| 1000   | ```ADI R1,00001111``` | R1 += 0000000000001111 | Add immediate to R1                                     |
+| 1000   | ```ADI R1,00001111``` | R1 += 000001111        | Add immediate to R1                                     |
 | 1001   | ```SWP R1,R2,R3```    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                                 |
 | 1010   | ```LDW R1,R2,R0```    | R1 = [R2]              | load word into R1 from memory address R2                |
 | 1011   | ```STW R0,R2,R1```    | [R2] = R1              | store word in R1 at memory address R2                   |
