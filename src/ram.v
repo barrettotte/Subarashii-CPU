@@ -14,10 +14,20 @@ module ram(
   output [15:0] dout  // retrieved data
 );
 
-reg memory [65535:0];
+reg [15:0] memory [65535:0];
+integer i;
+
+// Clear RAM contents on start
+initial begin
+  for(i = 0; i < 65535; i++) begin
+    memory[i] <= 16'b0;
+  end
+end
 
 always @(posedge clk) begin
-  if(wen) memory[addr] = din;
+  if(wen) begin 
+    memory[addr] = din;
+  end
 end
 
 assign dout = (ren) ? memory[addr] : 16'b0;

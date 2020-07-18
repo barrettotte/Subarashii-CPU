@@ -1,13 +1,15 @@
 /*
 
+A notepad to jot down some specs...this will probably be removed in the future.
+
 
 16x16-bit registers
-  * R0     - zero register
-  * R1-R11 - general purpose
-  * R12    - scratch register 
-  * R13    - status register (flags, control, errors)
-  * R14    - link register
-  * R15    - stack pointer
+* R0     - zero register
+* R1-R11 - general purpose
+* R12    - scratch register 
+* R13    - status register (flags, control, errors)
+* R14    - link register
+* R15    - stack pointer
 
 
 
@@ -29,7 +31,7 @@ Status Register:
 | 1     | C    | Carry                |
 | 2     | N    | Negative             |
 | 3     | V    | Overflow             |
-| 4     |      |                      |
+| 4     | U    | Reserved             |
 | 5     | E    | Exception            |
 | 6     | M    | CPU Mode             |
 | 7     | IE   | Interrupt Enable     |
@@ -44,28 +46,28 @@ Status Register:
 
 
 
-| OPCODE | SYNTAX          | LOGIC                  | DESCRIPTION                                          |
-| ------ | --------------- | ---------------------- | ---------------------------------------------------- |
-| 0000   | ADD R1,R2,R3    | R1 = R2 + R3           | register addition                                    |
-| 0001   | SUB R1,R2,R3    | R1 = R2 - R3           | register subtraction                                 |
-| 0010   | AND R1,R2,R3    | R1 = R2 & R3           | logical AND                                          |
-| 0011   | ORR R1,R2,R3    | R1 = R2 | R3           | logical OR                                           |
-| 0100   | NOT R1,R2,R0    | R1 = ~R2               | logical NOT                                          |
-| 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                                          |
-| 0110   | LSR R1,R2,R0    | R1 = R2 >> 1           | logical shift right                                  |
-| 0111   | LSL R1,R2,R0    | R1 = R2 << 1           | logical shift left                                   |
-| 1000   | ADI R1,00001111 | R1 = ????????00001111  | Add immediate to R1                                  |
-| 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                              |
-| 1010   | LDW 0001,R1,R2  | R1 = [R2, offset]      | load word into R1 from memory address R2 + offset    |
-| 1011   | STW 0001,R1,R1  | [R2, offset] = R1      | store word in R1 at memory address R2 + offset       |
-| 1100   | BRZ R1,00001111 | PC = Z ? imm : PC      | branch to immediate offset if zero flag set          |
-| 1101   | JAL R1,R2       | R1 = PC+2 ; PC = R2    | jump to R2 and link to R1                            |
-| 1110   |                 |                        |                                                      |
-| 1111   |                 |                        |                                                      |
+| OPCODE | SYNTAX          | LOGIC                  | DESCRIPTION                                             |
+| ------ | --------------- | ---------------------- | ------------------------------------------------------- |
+| 0000   | ADD R1,R2,R3    | R1 = R2 + R3           | register addition                                       |
+| 0001   | SUB R1,R2,R3    | R1 = R2 - R3           | register subtraction                                    |
+| 0010   | AND R1,R2,R3    | R1 = R2 & R3           | logical AND                                             |
+| 0011   | ORR R1,R2,R3    | R1 = R2 | R3           | logical OR                                              |
+| 0100   | NOT R1,R2,R0    | R1 = ~R2               | logical NOT                                             |
+| 0101   | XOR R1,R2,R3    | R1 = R2 ^ R3           | logical XOR                                             |
+| 0110   | LSR R1,R2,R0    | R1 = R2 >> 1           | logical shift right                                     |
+| 0111   | LSL R1,R2,R0    | R1 = R2 << 1           | logical shift left                                      |
+| 1000   | ADI R1,00001111 | R1 += 0000000000001111 | Add immediate to R1                                     |
+| 1001   | SWP R1,R2,R3    | R1 = R2[HI] R3[LO]     | Swap bytes of registers                                 |
+| 1010   | LDW R1,R2,R0    | R1 = [R2]              | load word into R1 from memory address R2                |
+| 1011   | STW R0,R2,R1    | [R2] = R1              | store word in R1 at memory address R2                   |
+| 1100   | BRZ R1,R2,R3    | PC = R2-R3=Z ? R1 : PC | relative branch to R1 if result of R2-R3 sets zero flag |
+| 1101   | JAL R1,R2       | R1 = PC+2 ; PC = R2    | jump to address R2 and link to R1                       |
+| 1110   |                 |                        |                                                         |
+| 1111   |                 |                        |                                                         |
 
 
 
-Psuedo Opcodes:
+Psuedo Opcode Brainstorm:
   1. INC R1,0x01    
     * XOR R12,R12,R12  ; clear scratch register   
     * ADI R12,0x01     ; load scratch register with increment
@@ -89,7 +91,8 @@ Psuedo Opcodes:
   6. CLR R1
     * XOR R1,R1,R1     ; clear register contents
   7. NOP               ; no operation
-    * LSL R0,R0        ;
-
+    * ADD R0,R0,R0     ;
+  8. JMP R2            
+    * JAL R2,R0        ; link to zero register
 
 */

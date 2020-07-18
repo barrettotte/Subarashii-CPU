@@ -51,6 +51,7 @@ module cpu(
 
 wire [15:0] instruction;     // machine code read from ROM
 wire [15:0] mdr;             // memory data register
+wire [15:0] ramOut;          // value read from RAM
 
 // immediate wires
 wire [15:0] immExt;          // immediate extension (sign or zero)
@@ -128,17 +129,18 @@ assign immExt2c = ~(immShift) + 1'b1;   // twos complement
 // Assign next program counter (handle jump and branch)
 assign pc2 = pcCur + 16'd2;  // 2 byte instructions
 assign pcBrz = (immShift[15] == 1'b1) ? (pc2 - immExt2c) : (pc2 + immShift);
-assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz  // branch to relative address
-                 : (jump == 1'b1) ? rs                     // jump to absolute address
-                  : pc2;                                   // just do next instruction
+assign pcNext = ((branch & aluStatus[0]) == 1'b1) ? pcBrz    // branch to relative address
+                : (jump == 1'b1) ? rs                        // jump to absolute address
+                  : pc2;                                     // just to next instruction
 
 
 ram ram( .clk(clk), .wen(memWrite), .ren(memRead), .din(rt), .addr(aluResult), .dout(ramOut) );
 
 // write back to register file
-assign rd = (memToReg == 2'b01) ? ramOut            // memory to register (LDW)
-             : (memToReg == 2'b10) ? pcCur + 16'd2  // store next PC value (JAL)
-             : aluResult;                           // act as normal
+assign rd = (regWrite == 1'b0) ? rd                  // do not write new value to rd
+            : (memToReg == 2'b01) ? ramOut           // memory to register (LDW)
+              : (memToReg == 2'b10) ? pcCur + 16'd2  // store next PC value (JAL)
+                : aluResult;                         // act as normal
 
 
 

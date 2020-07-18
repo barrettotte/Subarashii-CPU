@@ -196,13 +196,13 @@ always @(*) begin
         aluOp = 3'b000;   // Use ADD op to build address
         regDst = 2'b00;   // store result in Rd
         memToReg = 2'b01; // load memory into Rd
-        aluSrcA = 2'b11;  // use zero
-        aluSrcB = 2'b00;  // use Rs
+        aluSrcA = 2'b00;  // use Rs
+        aluSrcB = 2'b11;  // use zero
         branch = 1'b0;    // no branching
         jump = 1'b0;      // no jumping
         memRead = 1'b1;   // read from memory
         memWrite = 1'b0;  // no memory write
-        regWrite = 1'b1;  // write memory read result to Rd
+        regWrite = 1'b1;  // write memory read to Rd
         signExt  = 1'b0;  // no sign extending
       end
 
@@ -211,8 +211,8 @@ always @(*) begin
         aluOp = 3'b000;   // Use ADD op to build address
         regDst = 2'b00;   // store result in Rd
         memToReg = 2'b00; // don't put memory in reg
-        aluSrcA = 2'b11;  // use zero
-        aluSrcB = 2'b00;  // use Rt
+        aluSrcA = 2'b00;  // use Rs
+        aluSrcB = 2'b11;  // use zero
         branch = 1'b0;    // no branching
         jump = 1'b0;      // no jumping
         memRead = 1'b0;   // don't read from memory
