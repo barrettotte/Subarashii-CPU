@@ -1,8 +1,7 @@
 # Subarashii-CPU
 
-A homebrew 16-bit RISC CPU in Verilog.
-
-This is the basis implementation and will most likely change slightly in the future.
+A 16-bit RISC CPU inspired by MIPS. 
+I designed this to learn more about computer architecture/organization.
 
 
 ## Specifications
