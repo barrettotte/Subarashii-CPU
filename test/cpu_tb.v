@@ -56,22 +56,9 @@ module cpu_tb;
   initial begin
     $dumpfile("out/cpu.vcd");
     $dumpvars(0, cpu_tb);
-    
-    rst = 1'b1;
-    #20;
-    rst = 1'b0;
-    #20;
-
-    #20;
-    #20;
-    #20;
-    #20;
-
-    #20;
-    #20;
-    #20;
-    #20;
-
+    rst = 1'b1; #20;
+    rst = 1'b0; #20;
+    #1500; // sit back and run through the ROM
     $finish;
     $display("Testbench completed");
   end

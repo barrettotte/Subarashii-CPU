@@ -241,8 +241,8 @@ always @(*) begin
         aluOp = 3'b000;   // ALU won't be used
         regDst = 2'b10;   // store result in Rd
         memToReg = 2'b10; // link
-        aluSrcA = 2'b00;  // use Rs
-        aluSrcB = 2'b00;  // use Rt
+        aluSrcA = 2'b11;  // use zero
+        aluSrcB = 2'b11;  // use zero
         branch = 1'b0;    // no branching
         jump = 1'b1;      // jump
         memRead = 1'b0;   // no memory read
