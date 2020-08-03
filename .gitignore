@@ -1,2 +1,5 @@
 out/*.vvp
 out/*.vcd
+
+.wakatime-project
+docs/~$*

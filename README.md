@@ -10,17 +10,23 @@ I designed this to learn more about computer architecture/organization.
 * single cycle execution
 * 16 x 16-bit registers
 * 64KB ROM with 16-bit instructions
-* 64KB RAM
-* Memory mapped I/O
+* 64KB RAM with memory mapped I/O
+
+
+
+## Physical Implementation
+* Simple bill of materials located at [https://github.com/barrettotte/Subarashii-CPU/docs/bom.xlsx](docs/bom.xlsx)
+* More documentation to come such as schematics and screenshots
+
 
 
 ## Instruction Set
-| Opcode | Syntax          | Logic                  | Description                                             |
-| ------ | --------------- | ---------------------- | ------------------------------------------------------- |
+| Opcode | Syntax                | Logic                  | Description                                             |
+| ------ | --------------------- | ---------------------- | ------------------------------------------------------- |
 | 0000   | ```ADD R1,R2,R3```    | R1 = R2 + R3           | register addition                                       |
 | 0001   | ```SUB R1,R2,R3```    | R1 = R2 - R3           | register subtraction                                    |
 | 0010   | ```AND R1,R2,R3```    | R1 = R2 & R3           | logical AND                                             |
-| 0011   | ```ORR R1,R2,R3```    | R1 = R2 \| R3           | logical OR                                              |
+| 0011   | ```ORR R1,R2,R3```    | R1 = R2 \| R3          | logical OR                                              |
 | 0100   | ```NOT R1,R2,R0```    | R1 = ~R2               | logical NOT                                             |
 | 0101   | ```XOR R1,R2,R3```    | R1 = R2 ^ R3           | logical XOR                                             |
 | 0110   | ```LSR R1,R2,R0```    | R1 = R2 >> 1           | logical shift right                                     |
@@ -36,7 +42,6 @@ I designed this to learn more about computer architecture/organization.
 
 
 Note: I left two instructions open so I can add new features or any missing functionality; I'm sure I missed something.
-
 
 
 ## Register Set
@@ -76,9 +81,9 @@ These flags are also very likely to change in the future.
 
 ## Example Assembly / Machine Code
 I have not made an assembler yet, but it will probably look something like this.
-The commented machine code is what is used in [src/rom.v](src/rom.v) to run instructions.
+The commented machine code is what is used in [https://github.com/barrettotte/Subarashii-CPU/src/rom.v](src/rom.v) to run instructions.
 
-This example is located in [test/tests.asm](test/tests.asm).
+This example is located in [https://github.com/barrettotte/Subarashii-CPU/test/tests.asm](test/tests.asm).
 ```assembly
 ; Test cases - Machine code used in src/rom.v
 ;
